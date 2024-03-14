@@ -1,0 +1,18 @@
+parameters:
+  - name: project-test
+    type: string
+    default: "**/*Tests/*.UnitTests.csproj"
+stages:
+  - stage: Build
+    condition: and(succeeded(), or(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature'), startsWith(variables['Build.SourceBranch'], 'refs/heads/bug'), startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
+    variables:
+      - group: global-variables
+    displayName: Build stage
+    jobs:
+      - job: Build
+        displayName: Build job
+        steps:
+          - template: ../steps/dotnet/installer.yml
+          - template: ../steps/nuget/installer.yml
+          - template: ../steps/dotnet/restore.yml
+          - template: ../steps/automationtests/run_unit_tests.yml

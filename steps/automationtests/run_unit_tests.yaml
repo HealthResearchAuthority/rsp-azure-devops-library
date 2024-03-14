@@ -1,0 +1,9 @@
+steps:
+  - task: DotNetCoreCLI@2
+    displayName: Run .NET unit tests
+    inputs:
+      command: "test"
+      nobuild: false
+      projects: "**/*Tests/*.csproj"
+      testRunTitle: "Running Unit Tests"
+      arguments: "--filter FullyQualifiedName!~IntegrationTests --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover%2cjson /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/ /p:MergeWith=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.json"

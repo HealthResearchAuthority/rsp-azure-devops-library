@@ -1,0 +1,6 @@
+steps:
+  - task: UseDotNet@2
+    displayName: Install .Net 8.x.x
+    inputs:
+      version: "8.x.x"
+      installationPath: $(Agent.ToolsDirectory)/dotnet
