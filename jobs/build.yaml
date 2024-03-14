@@ -12,7 +12,7 @@ stages:
       - job: Build
         displayName: Build job
         steps:
-          - template: ../steps/dotnet/installer.yml
-          - template: ../steps/nuget/installer.yml
-          - template: ../steps/dotnet/restore.yml
-          - template: ../steps/automationtests/run_unit_tests.yml
+          - template: ../steps/dotnet/installer.yaml
+          - template: ../steps/nuget/installer.yaml
+          - template: ../steps/dotnet/restore.yaml
+          - template: ../steps/automationtests/run_unit_tests.yaml
