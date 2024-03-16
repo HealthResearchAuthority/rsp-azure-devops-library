@@ -1,0 +1,14 @@
+steps:
+  - task: DotNetCoreCLI@2
+    displayName: Installing Tool Manifest
+    inputs:
+      command: "custom"
+      custom: "new"
+      arguments: "tool-manifest"
+
+  - task: DotNetCoreCLI@2
+    displayName: Installing Report Generator
+    inputs:
+      command: "custom"
+      custom: "tool"
+      arguments: "install dotnet-reportgenerator-globaltool"

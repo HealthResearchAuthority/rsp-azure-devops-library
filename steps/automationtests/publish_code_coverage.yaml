@@ -1,0 +1,8 @@
+steps:
+  - task: PublishCodeCoverageResults@2
+    displayName: 'Publishing code coverage report'
+    inputs:
+      codeCoverageTool: 'Cobertura'
+      summaryFileLocation: '$(Agent.TempDirectory)/**/Cobertura.xml'
+      buildConfiguration: $(buildConfiguration)
+      buildPlatform: "linux-x64"

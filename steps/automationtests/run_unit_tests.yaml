@@ -1,9 +1,17 @@
 steps:
   - task: DotNetCoreCLI@2
-    displayName: Run .NET unit tests
+    displayName: Running .NET unit tests
     inputs:
       command: "test"
-      nobuild: false
+      nobuild: true
       projects: "**/*Tests/*.csproj"
       testRunTitle: "Running Unit Tests"
-      arguments: "--filter FullyQualifiedName!~IntegrationTests --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover%2cjson /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/ /p:MergeWith=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.json"
+      #arguments: "--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover%2cjson /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/ /p:MergeWith=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.json"
+      arguments: "--configuration $(buildConfiguration) --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
+
+  - task: DotNetCoreCLI@2
+    displayName: Merging Coverage Reports
+    inputs:
+      command: "custom"
+      custom: "reportgenerator"
+      arguments: "-reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Agent.TempDirectory)/CoverageReport -reporttypes:Cobertura"

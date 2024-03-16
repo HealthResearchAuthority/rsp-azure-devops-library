@@ -1,4 +1,3 @@
 steps:
   - task: NuGetToolInstaller@1
-    inputs:
-      versionSpec:
+    displayName: "Installing NuGet"
