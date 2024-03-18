@@ -1,0 +1,10 @@
+# Advanced Security Perform CodeQL analysis v1
+# Finalizes the CodeQL database and runs the analysis queries.
+steps:
+  - task: AdvancedSecurity-Codeql-Analyze@1
+    displayName: 'Advanced Security Performing CodeQL Analysis'
+    #inputs:
+      #WaitForProcessing: false # boolean. Enable Wait for Processing. Default: false.
+      #WaitForProcessingInterval: '5' # string. Optional. Use when WaitForProcessing = true. Wait for Processing Time Interval. Default: 5.
+      #WaitForProcessingTimeout: '120' # string. Optional. Use when WaitForProcessing = true. Wait for Processing Timeout. Default: 120.
+  

@@ -1,0 +1,9 @@
+# Advanced Security Dependency Scanning v1
+# Scan for open source dependency vulnerabilities in your source code.
+steps:
+  - task: AdvancedSecurity-Dependency-Scanning@1
+    displayName: 'Advanced Security Dependency Scanning'
+    #inputs:
+      # Advanced
+      #directoryExclusionList: # string. Directory exclusion list.
+  

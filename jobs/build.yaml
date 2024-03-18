@@ -9,6 +9,10 @@ stages:
           - template: ../steps/nuget/installer.yaml
           - template: ../steps/dotnet/installer.yaml
           - template: ../steps/dotnet/install_report_generator.yaml
+          - template: ../steps/security/code_scanning_init.yaml
           - template: ../steps/dotnet/build.yaml
+          - template: ../steps/security/dependency_scanning.yaml
+          - template: ../steps/security/code_scanning_analysis.yaml
           - template: ../steps/automationtests/run_unit_tests.yaml
           - template: ../steps/automationtests/publish_code_coverage.yaml
+          - template: ../steps/dotnet/publish_artifacts.yaml
