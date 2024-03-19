@@ -1,3 +1,7 @@
+parameters:
+  - name: run_github_security_scan
+    type: boolean
+
 stages:
   - stage: Build
     condition: and(succeeded(), or(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature'), startsWith(variables['Build.SourceBranch'], 'refs/heads/bug'), startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
@@ -9,10 +13,11 @@ stages:
           - template: ../steps/nuget/installer.yaml
           - template: ../steps/dotnet/installer.yaml
           - template: ../steps/dotnet/install_report_generator.yaml
-          - template: ../steps/security/code_scanning_init.yaml
+          - ${{ if parameters.run_github_security_scan }}:
+            - template: ../steps/security/code_scanning_init.yaml
           - template: ../steps/dotnet/build.yaml
-          - template: ../steps/security/dependency_scanning.yaml
-          - template: ../steps/security/code_scanning_analysis.yaml
+          - ${{ if parameters.run_github_security_scan }}:
+            - template: ../steps/security/dependency_scanning.yaml
+            - template: ../steps/security/code_scanning_analysis.yaml
           - template: ../steps/automationtests/run_unit_tests.yaml
           - template: ../steps/automationtests/publish_code_coverage.yaml
-          - template: ../steps/dotnet/publish_artifacts.yaml

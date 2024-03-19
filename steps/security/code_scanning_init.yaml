@@ -11,7 +11,8 @@ steps:
     # Advanced
       #ram: # string. Options to control RAM usage in MB. 
       #threads: # string. Use this many threads to evaluate queries. 
-      #codeqlpathstoignore: # string. Set a list of paths to exclude in the CodeQL analysis. 
+      #codeqlpathstoignore: # string. Set a list of paths to exclude in the CodeQL analysis.
+      #codeqlpathstoignore: $(Build.SourcesDirectory)/**/generated 
       #codeqlpathstoinclude: # string. Set a list of additional paths to include in the CodeQL analysis. 
       #sourcesfolder: # string. Sets the folder that contains the sources to be analyzed. 
       #loglevel: '_' # '0' | '1' | '2' | '_'. Set the log level for the CodeQL analysis. Default: _.

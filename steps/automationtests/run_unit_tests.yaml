@@ -3,15 +3,34 @@ steps:
     displayName: Running .NET unit tests
     inputs:
       command: "test"
-      nobuild: true
       projects: "**/*Tests/*.csproj"
       testRunTitle: "Running Unit Tests"
+      nobuild: true
       #arguments: "--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover%2cjson /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/ /p:MergeWith=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.json"
-      arguments: "--configuration $(buildConfiguration) --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura"
+      arguments: '--no-restore --logger:"xunit;LogFilePath=test_results.xml" --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+      publishTestResults: false
+    
+    # Publish Test Results v2
+    # Publish test results to Azure Pipelines.
+  - task: PublishTestResults@2
+    displayName: Publishing Test Results
+    inputs:
+      testResultsFormat: 'XUnit' # 'JUnit' | 'NUnit' | 'VSTest' | 'XUnit' | 'CTest'. Alias: testRunner. Required. Test result format. Default: JUnit.
+      testResultsFiles: '$(Build.SourcesDirectory)/**/test_results.xml' # string. Required. Test results files. Default: **/TEST-*.xml.
+      #searchFolder: '$(System.DefaultWorkingDirectory)' # string. Search folder. Default: $(System.DefaultWorkingDirectory).
+      mergeTestResults: true # boolean. Merge test results. Default: false.
+      #failTaskOnFailedTests: false # boolean. Fail if there are test failures. Default: false.
+      #failTaskOnFailureToPublishResults: false # boolean. Fail if there is failure in publishing test results. Default: false.
+      #failTaskOnMissingResultsFile: false # boolean. Fail if no result files are found. Default: false.
+      testRunTitle: 'Unit and Integration Tests' # string. Test run title. 
+    # Advanced
+      #buildPlatform: # string. Alias: platform. Build Platform. 
+      #buildConfiguration: # string. Alias: configuration. Build Configuration. 
+      #publishRunAttachments: true # boolean. Upload test results files. Default: true.
 
   - task: DotNetCoreCLI@2
     displayName: Merging Coverage Reports
     inputs:
       command: "custom"
       custom: "reportgenerator"
-      arguments: "-reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Agent.TempDirectory)/CoverageReport -reporttypes:Cobertura"
+      arguments: "-reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Agent.TempDirectory)/CodeCoverage -reporttypes:Cobertura"
