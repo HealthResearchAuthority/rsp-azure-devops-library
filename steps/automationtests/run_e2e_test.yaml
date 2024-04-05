@@ -23,6 +23,7 @@ steps:
     workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/'
     env:
       CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
+      CI: 'true'
     timeoutInMinutes: 10
     displayName: "Run Tests"
 
