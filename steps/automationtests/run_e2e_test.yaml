@@ -1,9 +1,10 @@
 steps:
+  - checkout: git://Research%20Systems%20Programme/rsp-iras-qa@main
+
   - task: NodeTool@0
     inputs:
       versionSpec: "20.x"
     displayName: "Install Node.js"
-    timeoutInMinutes: 10
 
   - script: |
       npm ci
@@ -18,6 +19,7 @@ steps:
     env:
       CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
     displayName: "Run Tests"
+    timeoutInMinutes: 10
 
   - publish: $(System.DefaultWorkingDirectory)/test-reports/playwright
     artifact: playwright-report
