@@ -10,26 +10,28 @@ steps:
       echo  '$(System.DefaultWorkingDirectory)'
       echo  '$(Agent.BuildDirectory)'
       npm ci
-    displayName: "Install Dependencies"
     workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/'
+    displayName: "Install Dependencies"
 
   - script: |
       npx playwright install --with-deps
+    workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/'
     displayName: "Install Playwright with Browsers"
 
   - script: |
       npx bddgen && npx playwright test
+    workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/'
     env:
       CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
-    displayName: "Run Tests"
     timeoutInMinutes: 10
+    displayName: "Run Tests"
 
-  - publish: $(System.DefaultWorkingDirectory)/test-reports/playwright
+  - publish: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/test-reports/playwright'
     artifact: playwright-report
     condition: always()
     displayName: Publish Playwright Report
 
-  - publish: $(System.DefaultWorkingDirectory)/test-reports/cucumber
+  - publish: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/test-reports/cucumber'
     artifact: cucumber-report
     condition: always()
     displayName: Publish Cucumber Report
