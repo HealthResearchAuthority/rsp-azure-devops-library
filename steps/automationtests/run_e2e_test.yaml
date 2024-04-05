@@ -1,5 +1,5 @@
 steps:
-  - checkout: git://Research%%20Systems%%20Programme/rsp-iras-qa@main
+  - checkout: git://Research Systems Programme/rsp-iras-qa@main
 
   - task: NodeTool@0
     inputs:
