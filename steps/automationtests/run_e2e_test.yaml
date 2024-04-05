@@ -11,6 +11,7 @@ steps:
       echo  '$(Agent.BuildDirectory)'
       npm ci
     displayName: "Install Dependencies"
+    workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/'
 
   - script: |
       npx playwright install --with-deps
