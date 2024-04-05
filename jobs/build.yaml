@@ -2,6 +2,12 @@ parameters:
   - name: run_github_security_scan
     type: boolean
 
+variables:
+  CI: true
+
+pool:
+  vmImage: ubuntu-latest
+
 stages:
   - stage: Build
     condition: and(succeeded(), or(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature'), startsWith(variables['Build.SourceBranch'], 'refs/heads/bug'), startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))

@@ -3,6 +3,7 @@ steps:
     inputs:
       versionSpec: "20.x"
     displayName: "Install Node.js"
+    timeoutInMinutes: 10
 
   - script: |
       npm ci
