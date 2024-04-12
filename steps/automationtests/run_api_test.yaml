@@ -1,0 +1,19 @@
+steps:
+  - checkout: git://Research Systems Programme/rsp-iras-api-tests@main
+
+  - task: Npm@1
+    displayName: 'Install Dependencies'
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: 'install newman -g'
+
+  - script: |
+      newman run $(Build.Repository.LocalPath)/postmancollection/*.json -x -r junit --reporter-junit-export TestResults/API_Test_Report.xml
+      displayName: 'Postman API tests running'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.Repository.LocalPath)/TestResults'
+      ArtifactName: 'API_Test_Report.xml'
+      publishLocation: 'Container'
