@@ -9,13 +9,12 @@ steps:
       customCommand: 'install newman -g'
 
   - script: |
-      newman run $(System.DefaultWorkingDirectory)/postmancollection/postman_collection.json -x -r junit --reporter-junit-export TestResults/API_Test_Report.xml
-    workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-api-tests/'
+      newman run $(System.DefaultWorkingDirectory)/rsp-iras-api-tests/postmancollection/postman_collection.json -x -r junit --reporter-junit-export $(System.DefaultWorkingDirectory)/rsp-iras-api-tests/TestResults/API_Test_Report.xml
     displayName: 'Run Postman API Tests'
 
   - task: PublishBuildArtifacts@1
     displayName: Publish API Test Report
     inputs:
-      PathtoPublish: '$(System.DefaultWorkingDirectory)/TestResults'
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/rsp-iras-api-tests/TestResults'
       ArtifactName: 'API_Test_Report.xml'
       publishLocation: 'Container'
