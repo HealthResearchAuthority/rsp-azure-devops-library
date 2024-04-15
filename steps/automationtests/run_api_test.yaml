@@ -10,7 +10,7 @@ steps:
 
   - script: |
       newman run $(System.DefaultWorkingDirectory)/postmancollection/postman_collection.json -x -r junit --reporter-junit-export TestResults/API_Test_Report.xml
-    workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-api-tests/'
     displayName: 'Run Postman API Tests'
 
   - task: PublishBuildArtifacts@1
