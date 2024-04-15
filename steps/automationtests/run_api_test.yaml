@@ -15,6 +15,6 @@ steps:
   - task: PublishBuildArtifacts@1
     displayName: Publish API Test Report
     inputs:
-      PathtoPublish: '$(Build.Repository.LocalPath)/TestResults'
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/TestResults'
       ArtifactName: 'API_Test_Report.xml'
       publishLocation: 'Container'
