@@ -1,3 +1,6 @@
+parameters:
+  SportsTeam: "A Default Team"
+  
 steps:
   - checkout: git://Research Systems Programme/rsp-iras-qa@main
 
@@ -9,6 +12,7 @@ steps:
   - script: |
       echo  '$(System.DefaultWorkingDirectory)'
       echo  '$(Agent.BuildDirectory)'
+      echo  '${{ parameters.SportsTeam }}'
       echo  '${{ parameters.browser }}'
       echo  '${{ parameters.run_github_security_scan }}'
       npm ci
