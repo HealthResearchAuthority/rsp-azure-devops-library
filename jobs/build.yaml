@@ -14,6 +14,8 @@ stages:
   - stage: Build
     condition: and(succeeded(), or(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature'), startsWith(variables['Build.SourceBranch'], 'refs/heads/bug'), startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
     displayName: Build stage
+    variables:
+    FavouriteSportsTeam: "Houston Rockets"
     jobs:
       - job: "Build"
         displayName: Build job
@@ -30,4 +32,6 @@ stages:
           - template: ../steps/automationtests/run_unit_tests.yaml
           - template: ../steps/automationtests/publish_code_coverage.yaml
           - template: ../steps/automationtests/run_e2e_test.yaml
+            parameters:
+              SportsTeam: $(FavouriteSportsTeam)
           - template: ../steps/automationtests/run_api_test.yaml
