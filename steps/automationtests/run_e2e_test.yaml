@@ -1,9 +1,8 @@
 parameters:
-  sportsTeam: "A Default Team"
-  browser: "Default Browser"
+  browser: "Browser Parameter"
 
 steps:
-  - checkout: git://Research Systems Programme/rsp-iras-qa@main
+  - checkout: git://Research Systems Programme/rsp-iras-qa@feature/rsp-757-enable-cross-browser
 
   - task: NodeTool@0
     inputs:
@@ -11,11 +10,7 @@ steps:
     displayName: "Install Node.js"
 
   - script: |
-      echo  '$(System.DefaultWorkingDirectory)'
-      echo  '$(Agent.BuildDirectory)'
-      echo  '${{ parameters.sportsTeam }}'
-      echo  '${{ parameters.browser }}'
-      echo  '${{ parameters.run_github_security_scan }}'
+      echo  'BROWSER PARAM IS: ${{ parameters.browser }}'
       npm ci
     workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/'
     displayName: "Install Dependencies"
