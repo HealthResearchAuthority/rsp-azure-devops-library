@@ -2,13 +2,7 @@ parameters:
   - name: run_github_security_scan
     type: boolean
   - name: browser
-    displayName: Select a Browser
     type: string
-    default: chromium
-    values:
-      - chromium
-      - safari
-      - firefox
 
 stages:
   - stage: Build
