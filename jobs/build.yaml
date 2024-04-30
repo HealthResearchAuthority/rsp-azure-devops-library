@@ -33,5 +33,5 @@ stages:
           - template: ../steps/automationtests/publish_code_coverage.yaml
           - template: ../steps/automationtests/run_e2e_test.yaml
             parameters:
-              SportsTeam: $(favouriteSportsTeam)
+              sportsTeam: $(favouriteSportsTeam)
           - template: ../steps/automationtests/run_api_test.yaml
