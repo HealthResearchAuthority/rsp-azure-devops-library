@@ -10,7 +10,6 @@ steps:
     displayName: "Install Node.js"
 
   - script: |
-      echo  'BROWSER PARAM IS: ${{ parameters.browser }}'
       npm ci
     workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/'
     displayName: "Install Dependencies"
