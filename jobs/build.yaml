@@ -28,4 +28,5 @@ stages:
           - template: ../steps/automationtests/run_e2e_test.yaml
             parameters:
               sportsTeam: $(favouriteSportsTeam)
+              browser: ${{ parameters.browser }}
           - template: ../steps/automationtests/run_api_test.yaml
