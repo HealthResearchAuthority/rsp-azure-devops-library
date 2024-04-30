@@ -1,5 +1,6 @@
 parameters:
   sportsTeam: "A Default Team"
+  browser: "Default Browser"
 
 steps:
   - checkout: git://Research Systems Programme/rsp-iras-qa@main
