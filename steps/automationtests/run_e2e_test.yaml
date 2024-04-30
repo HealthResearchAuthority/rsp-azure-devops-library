@@ -10,6 +10,7 @@ steps:
       echo  '$(System.DefaultWorkingDirectory)'
       echo  '$(Agent.BuildDirectory)'
       echo   ${{ parameters.browser }}
+      echo   ${{ parameters.run_github_security_scan }}
       npm ci
     workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/'
     displayName: "Install Dependencies"
