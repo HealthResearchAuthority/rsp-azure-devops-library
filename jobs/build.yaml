@@ -11,8 +11,6 @@ stages:
     jobs:
       - job: "Build"
         displayName: Build job
-        variables:
-          favouriteSportsTeam: "Houston Rockets"
         steps:
           - template: ../steps/nuget/installer.yaml
           - template: ../steps/dotnet/installer.yaml
@@ -27,6 +25,5 @@ stages:
           - template: ../steps/automationtests/publish_code_coverage.yaml
           - template: ../steps/automationtests/run_e2e_test.yaml
             parameters:
-              sportsTeam: $(favouriteSportsTeam)
               browser: ${{ parameters.browser }}
           - template: ../steps/automationtests/run_api_test.yaml
