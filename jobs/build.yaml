@@ -10,9 +10,6 @@ parameters:
       - safari
       - firefox
 
-variables:
-  FavouriteSportsTeam: "Houston Rockets"
-
 stages:
   - stage: Build
     condition: and(succeeded(), or(eq(variables['Build.Reason'], 'PullRequest'), eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'], 'refs/heads/feature'), startsWith(variables['Build.SourceBranch'], 'refs/heads/bug'), startsWith(variables['Build.SourceBranch'], 'refs/heads/main')))
@@ -20,6 +17,8 @@ stages:
     jobs:
       - job: "Build"
         displayName: Build job
+        variables:
+          favouriteSportsTeam: "Houston Rockets"
         steps:
           - template: ../steps/nuget/installer.yaml
           - template: ../steps/dotnet/installer.yaml
@@ -34,5 +33,5 @@ stages:
           - template: ../steps/automationtests/publish_code_coverage.yaml
           - template: ../steps/automationtests/run_e2e_test.yaml
             parameters:
-              SportsTeam: $(FavouriteSportsTeam)
+              SportsTeam: $(favouriteSportsTeam)
           - template: ../steps/automationtests/run_api_test.yaml
