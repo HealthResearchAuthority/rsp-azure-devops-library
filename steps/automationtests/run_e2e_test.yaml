@@ -2,7 +2,7 @@ parameters:
   browser: "Browser Parameter"
 
 steps:
-  - checkout: git://Research Systems Programme/rsp-iras-qa@feature/rsp-757-enable-cross-browser
+  - checkout: git://Research Systems Programme/rsp-iras-qa@main
 
   - task: NodeTool@0
     inputs:
@@ -10,7 +10,6 @@ steps:
     displayName: "Install Node.js"
 
   - script: |
-      echo  'BROWSER PARAM IS: ${{ parameters.browser }}'
       npm ci
     workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/'
     displayName: "Install Dependencies"
