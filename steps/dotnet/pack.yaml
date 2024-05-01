@@ -1,0 +1,15 @@
+parameters:
+  - name: no_build
+    type: boolean
+    default: false
+
+steps:
+  - task: DotNetCoreCLI@2
+    displayName: 'Pack artifact'
+    inputs:
+      command: 'pack'
+      packagesToPack: '$(project)'
+      versioningScheme: 'off'
+      includeSymbols: true
+      nobuild: ${{ parameters.no_build }}
+      configuration: '$(buildConfiguration)'

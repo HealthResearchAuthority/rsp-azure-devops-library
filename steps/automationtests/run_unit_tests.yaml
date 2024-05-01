@@ -30,6 +30,7 @@ steps:
 
   - task: DotNetCoreCLI@2
     displayName: Merging Coverage Reports
+    continueOnError: true
     inputs:
       command: "custom"
       custom: "reportgenerator"

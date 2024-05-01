@@ -1,0 +1,10 @@
+steps:
+  - checkout: self 
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore From Feed'
+    inputs:
+      command: restore
+      projects: '$(project)'
+      feedsToUse: 'select'
+      vstsFeed: '$(vstsFeed)'
+    timeoutInMinutes: 5
