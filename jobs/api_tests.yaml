@@ -1,0 +1,18 @@
+parameters:
+  - name: reportDirectory
+    default: test-reports
+  - name: upload_to_sharepoint
+    type: boolean
+    default: false
+  - name: repo
+    default: self
+
+jobs:
+- job: RunApiTests
+  displayName: 'Run Api Tests'
+  timeoutInMinutes: 10
+  steps: 
+    - template: ../steps/automationtests/run_api_test.yaml
+      parameters:
+        reportDirectory: ${{ parameters.reportDirectory }}
+        repo: ${{ parameters.repo }}

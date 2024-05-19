@@ -1,6 +1,9 @@
-steps:
-  - checkout: git://Research Systems Programme/rsp-iras-api-tests@main
+parameters:
+  - name: reportDirectory
+  - name: repo
 
+steps:
+  - checkout: ${{ parameters.repo }}
   - task: Npm@1
     displayName: 'Install Dependencies'
     inputs:
@@ -13,13 +16,13 @@ steps:
     displayName: 'Install Dependency to generate HTML report'
 
   - script: |
-      newman run $(System.DefaultWorkingDirectory)/rsp-iras-api-tests/postmancollection/postman_collection.json -r htmlextra --reporter-htmlextra-export $(System.DefaultWorkingDirectory)/rsp-iras-api-tests/TestResults/API_Test_Report.html
+      newman run $(System.DefaultWorkingDirectory)/postmancollection/postman_collection.json -r htmlextra --reporter-htmlextra-export $(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/TestResults/API_Test_Report.html
     displayName: 'Run Postman API Tests'
 
   - task: PublishBuildArtifacts@1
     displayName: Publish API Test Report
     condition: always()
     inputs:
-      PathtoPublish: '$(System.DefaultWorkingDirectory)/rsp-iras-api-tests/TestResults'
-      ArtifactName: 'API_Test_Report'
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/TestResults'
+      ArtifactName: API_Test_Report
       publishLocation: 'Container'

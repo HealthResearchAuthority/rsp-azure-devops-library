@@ -1,0 +1,17 @@
+parameters:
+  - name: sharepoint_drive_id
+  - name: sharepoint_target_folder
+  - name: source_folder
+
+steps:
+  - task: halliba.az-pipelines-2-sharepoint.az-pipelines-2-sharepoint.az-pipelines-2-sharepoint@0
+    displayName: 'Upload Reports to SharePoint'
+    inputs:
+      tenantId: $(tenantId)
+      clientId: $(clientId)
+      clientSecret: $(clientSecret)
+      driveId: ${{ parameters.sharepoint_drive_id }}
+      conflictBehaviour: 'replace'
+      targetFolder: ${{ parameters.sharepoint_target_folder }}
+      sourceFolder: ${{ parameters.source_folder }}
+      contents: '**/*.html'

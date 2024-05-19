@@ -1,0 +1,34 @@
+parameters:
+  - name: browser
+    default: chromium
+  - name: reportDirectory
+    default: test-reports
+  - name: upload_to_sharepoint
+    type: boolean
+    default: false
+  - name: repo
+    default: self
+  - name: tests_run_timeout
+    type: number
+    default: 10
+
+jobs:
+- job: 'RunAutomatedE2ETests'
+  displayName: 'Run Automated E2E Tests'
+  timeoutInMinutes: 10
+  steps:
+    - template: ../steps/automationtests/run_e2e_test.yaml
+      parameters:
+        browser: ${{ parameters.browser }}
+        reportDirectory: ${{ parameters.reportDirectory }}
+        timeout: ${{ parameters.tests_run_timeout }}
+        repo: ${{ parameters.repo }}
+    
+    # set to default by false, will be set to true in the main nightly run pipeline
+    # this is to prevent exporting the report to SharePoint with every automated run.
+    - ${{ if parameters.upload_to_sharepoint }}:
+      - template: ../steps/sharepoint/upload_to_sharepoint.yaml
+        parameters:
+          sharepoint_drive_id: $(sharepoint_drive_id)
+          sharepoint_target_folder: $(sharepoint_target_folder)
+          source_folder: $(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}

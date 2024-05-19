@@ -1,9 +1,12 @@
 parameters:
-  browser: "Browser Parameter"
+  - name: browser
+  - name: reportDirectory
+  - name: repo
+  - name: timeout
+    type: number
 
 steps:
-  - checkout: git://Research Systems Programme/rsp-iras-qa@main
-
+  - checkout: ${{ parameters.repo }}
   - task: NodeTool@0
     inputs:
       versionSpec: "20.x"
@@ -11,30 +14,24 @@ steps:
 
   - script: |
       npm ci
-    workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/'
     displayName: "Install Dependencies"
 
   - script: |
       npx playwright install --with-deps
-    workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/'
     displayName: "Install Playwright with Browsers"
 
   - script: |
       npx bddgen && npx playwright test
-    workingDirectory: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/'
     env:
       BROWSER: ${{ parameters.browser }}
       CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
-      CI: 'true'
-    timeoutInMinutes: 10
+    timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests"
 
-  - publish: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/test-reports/playwright'
+  - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/playwright'
     artifact: playwright-report
-    condition: always()
     displayName: Publish Playwright Report
 
-  - publish: '$(System.DefaultWorkingDirectory)/rsp-iras-qa/test-reports/cucumber'
+  - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/cucumber'
     artifact: cucumber-report
-    condition: always()
     displayName: Publish Cucumber Report
