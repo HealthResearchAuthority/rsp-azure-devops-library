@@ -25,13 +25,16 @@ steps:
     env:
       BROWSER: ${{ parameters.browser }}
       CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
+      CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests"
 
   - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/playwright'
+    condition: always()
     artifact: playwright-report
     displayName: Publish Playwright Report
 
   - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/cucumber'
+    condition: always()
     artifact: cucumber-report
     displayName: Publish Cucumber Report
