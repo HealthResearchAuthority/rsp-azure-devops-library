@@ -18,7 +18,6 @@ jobs:
     - template: ../steps/automationtests/run_api_test.yaml
       parameters:
         reportDirectory: ${{ parameters.reportDirectory }}
-        timeout: ${{ parameters.tests_run_timeout }}
         repo: ${{ parameters.repo }}
 
     # set to default by false, will be set to true in the main nightly run pipeline
