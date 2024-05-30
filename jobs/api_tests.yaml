@@ -26,5 +26,5 @@ jobs:
       - template: ../steps/sharepoint/upload_to_sharepoint.yaml
         parameters:
           sharepoint_drive_id: $(sharepoint_drive_id)
-          sharepoint_target_folder: $(api_sharepoint_target_folder)
+          api_sharepoint_target_folder: $(api_sharepoint_target_folder)
           source_folder: $(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}
