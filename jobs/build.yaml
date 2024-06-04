@@ -3,6 +3,9 @@ parameters:
     type: boolean
   - name: sonar_project_key
   - name: sonar_project_name
+  - name: run_sonarcloud_analysis
+    type: boolean
+    default: false
 
 jobs:
   - job: Build
@@ -12,21 +15,31 @@ jobs:
       - template: ../steps/dotnet/installer.yaml
       - template: ../steps/dotnet/install_report_generator.yaml
       - template: ../steps/dotnet/restore_from_feed.yaml
+      
+      # git hub security scan initialization
       - ${{ if parameters.run_github_security_scan }}:
         - template: ../steps/security/code_scanning_init.yaml
-      - ${{ if $(run_sonarcloud_analysis) }}:
+
+      # sonar cloud code analysis configuration
+      - ${{ if parameters.run_sonarcloud_analysis }}:
         - template: ../steps/codeanalysis/prepare_analysis_configuration.yaml
           parameters:
             project_key: ${{ parameters.sonar_project_key }}
             project_name: ${{ parameters.sonar_project_name }}
+
       - template: ../steps/dotnet/build.yaml
         parameters:
           checkout: false
+
+      # git hub dependency scanning and codeql analysis
       - ${{ if parameters.run_github_security_scan }}:
         - template: ../steps/security/dependency_scanning.yaml
         - template: ../steps/security/code_scanning_analysis.yaml
+
       - template: ../steps/automationtests/run_unit_tests.yaml
       - template: ../steps/automationtests/publish_code_coverage.yaml
-      - ${{ if $(run_sonarcloud_analysis) }}:
+
+      # sonar cloud run code analysis
+      - ${{ if parameters.run_sonarcloud_analysis }}:
         - template: ../steps/codeanalysis/run_code_analysis.yaml
         - template: ../steps/codeanalysis/publish_quality_gate_result.yaml
