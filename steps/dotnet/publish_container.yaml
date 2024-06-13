@@ -5,4 +5,4 @@ steps:
       command: "publish"
       publishWebProjects: false
       projects: '**/**/Rsp.IrasService.csproj'
-      arguments: '-t:PublishContainer'
+      arguments: '-t:PublishContainer ContainerImageTags=testNikhil'
