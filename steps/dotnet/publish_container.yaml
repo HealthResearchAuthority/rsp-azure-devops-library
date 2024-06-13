@@ -10,7 +10,7 @@
 steps:
   - task: AzureContainerApps@1
     inputs:
-      acrName: 'crrspacaypvupdevuks.azurecr.io'
+      acrName: 'crrspacaypvupdevuks'
       containerAppName: 'ca-simple-hello'
       resourceGroup: 'rg-rsp-aca-spoke-dev-uks'
       containerAppEnvironment: 'cae-rsp-aca-dev-uks'
