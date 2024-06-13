@@ -1,12 +1,6 @@
-parameters:
-  - name: run_github_security_scan
-    type: boolean
-  - name: sonar_project_key
-  - name: sonar_project_name
-
 jobs:
-  - job: Build
-    displayName: Build job
+  - job: Deploy
+    displayName: Deploy job
     steps:
       - template: ../steps/dotnet/restore_from_feed.yaml
       - template: ../steps/dotnet/deploy.yaml
