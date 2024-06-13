@@ -1,3 +1,8 @@
+parameters:
+  - name: install_aspire
+    type: boolean
+    default: false
+
 jobs:
   - job: Deploy
     displayName: Deploy to Dev
