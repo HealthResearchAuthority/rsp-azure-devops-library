@@ -1,6 +1,6 @@
 jobs:
-  - job: Deploy
-    displayName: Deploy job
+  - job: Deploy to
+    displayName: Deploy to Dev
     steps:
       - template: ../steps/dotnet/restore_from_feed.yaml
       - template: ../steps/dotnet/deploy.yaml
