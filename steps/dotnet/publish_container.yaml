@@ -1,8 +1,20 @@
+# steps:
+#   - task: DotNetCoreCLI@2
+#     displayName: 'Publish container'
+#     inputs:
+#       command: "publish"
+#       publishWebProjects: false
+#       projects: '**/**/Rsp.IrasService.csproj'
+#       arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid) -p:ContainerRegistry=crrspacaypvupdevuks.azurecr.io'
+
 steps:
-  - task: DotNetCoreCLI@2
-    displayName: 'Publish container'
+  - task: AzureContainerApps@1
     inputs:
-      command: "publish"
-      publishWebProjects: false
-      projects: '**/**/Rsp.IrasService.csproj'
-      arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid) -p:ContainerRegistry=crrspacaypvupdevuks.azurecr.io'
+      acrName: 'crrspacaypvupdevuks.azurecr.io'
+      containerAppName: 'ca-simple-hello'
+      resourceGroup: 'rg-rsp-aca-spoke-dev-uks'
+      containerAppEnvironment: 'cae-rsp-aca-dev-uks'
+      ingress: 'internal'
+      azureSubscription: $(azureServiceConnection)
+      location: 'uksouth'
+      appSourcePath: $(Build.SourcesDirectory)
