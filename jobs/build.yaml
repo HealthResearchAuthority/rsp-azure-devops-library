@@ -3,6 +3,14 @@ parameters:
     type: boolean
   - name: sonar_project_key
   - name: sonar_project_name
+  - name: run_sonarcloud_analysis
+    type: boolean
+    default: false
+  - name: install_aspire
+    type: boolean
+    default: false
+  - name: service_defaults_repo
+    default: ''
 
 jobs:
   - job: Build
@@ -11,20 +19,35 @@ jobs:
       - template: ../steps/nuget/installer.yaml
       - template: ../steps/dotnet/installer.yaml
       - template: ../steps/dotnet/install_report_generator.yaml
+      - ${{ if parameters.install_aspire }}:
+        - template: ../steps/dotnet/install_aspire_workload.yaml
+        - checkout: ${{ parameters.service_defaults_repo }}
       - template: ../steps/dotnet/restore_from_feed.yaml
+      
+      # git hub security scan initialization
       - ${{ if parameters.run_github_security_scan }}:
         - template: ../steps/security/code_scanning_init.yaml
-      - template: ../steps/codeanalysis/prepare_analysis_configuration.yaml
-        parameters:
-          project_key: ${{ parameters.sonar_project_key }}
-          project_name: ${{ parameters.sonar_project_name }}
+
+      # sonar cloud code analysis configuration
+      - ${{ if parameters.run_sonarcloud_analysis }}:
+        - template: ../steps/codeanalysis/prepare_analysis_configuration.yaml
+          parameters:
+            project_key: ${{ parameters.sonar_project_key }}
+            project_name: ${{ parameters.sonar_project_name }}
+
       - template: ../steps/dotnet/build.yaml
         parameters:
           checkout: false
-      - template: ../steps/codeanalysis/run_code_analysis.yaml
-      - template: ../steps/codeanalysis/publish_quality_gate_result.yaml
+
+      # git hub dependency scanning and codeql analysis
       - ${{ if parameters.run_github_security_scan }}:
         - template: ../steps/security/dependency_scanning.yaml
         - template: ../steps/security/code_scanning_analysis.yaml
+
       - template: ../steps/automationtests/run_unit_tests.yaml
       - template: ../steps/automationtests/publish_code_coverage.yaml
+
+      # sonar cloud run code analysis
+      - ${{ if parameters.run_sonarcloud_analysis }}:
+        - template: ../steps/codeanalysis/run_code_analysis.yaml
+        - template: ../steps/codeanalysis/publish_quality_gate_result.yaml

@@ -1,0 +1,7 @@
+steps:
+  - task: DotNetCoreCLI@2
+    displayName: Installing Aspire Workload
+    inputs:
+      command: "custom"
+      custom: "workload"
+      arguments: "install aspire"
