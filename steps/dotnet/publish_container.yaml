@@ -1,6 +1,4 @@
 steps:
-  - checkout: self
-  - checkout: service_defaults
   - task: DotNetCoreCLI@2
     displayName: 'Publish container'
     inputs:
