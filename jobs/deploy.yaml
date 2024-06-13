@@ -7,7 +7,7 @@ parameters:
 
 variables:
   -name: buildid
-   value: '$(Build.BuildId)'
+   value: $(Build.BuildId)
 
 jobs:
   - job: Deploy
