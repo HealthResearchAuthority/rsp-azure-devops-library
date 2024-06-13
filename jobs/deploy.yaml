@@ -2,5 +2,11 @@ jobs:
   - job: Deploy
     displayName: Deploy to Dev
     steps:
+      - template: ../steps/nuget/installer.yaml
+      - template: ../steps/dotnet/installer.yaml
+      - template: ../steps/dotnet/install_report_generator.yaml
+      - ${{ if parameters.install_aspire }}:
+        - template: ../steps/dotnet/install_aspire_workload.yaml
+        - checkout: ${{ parameters.service_defaults_repo }}
       - template: ../steps/dotnet/restore_from_feed.yaml
       - template: ../steps/dotnet/deploy.yaml
