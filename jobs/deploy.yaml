@@ -7,7 +7,7 @@ parameters:
 
 variables:
   -name: buildid
-   value: asdas
+   value: testvalue
 
 jobs:
   - job: Deploy
