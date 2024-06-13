@@ -5,6 +5,10 @@ parameters:
   - name: service_defaults_repo
     default: ''
 
+variables:
+  -name: buildid
+   value: '$(Build.BuildId)'
+
 jobs:
   - job: Deploy
     displayName: Deploy to Dev
