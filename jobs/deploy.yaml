@@ -2,6 +2,8 @@ parameters:
   - name: install_aspire
     type: boolean
     default: false
+  - name: service_defaults_repo
+    default: ''
 
 jobs:
   - job: Deploy
