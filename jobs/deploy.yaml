@@ -7,7 +7,7 @@ parameters:
 
 variables:
   -name: buildid
-   value: $(Build.BuildId)
+   value: asdas
 
 jobs:
   - job: Deploy
