@@ -18,3 +18,4 @@ jobs:
       - template: ../steps/dotnet/restore_from_feed.yaml
       - template: ../steps/dotnet/acr_login.yaml
       - template: ../steps/dotnet/publish_container.yaml
+      - template: ../steps/dotnet/deploy_aca.yaml
