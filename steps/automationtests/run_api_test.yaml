@@ -23,7 +23,7 @@ steps:
       echo "Content of JSON_DATA variable:"
       echo "$JSON_DATA"
 
-      COLLECTION_PATH=$(System.DefaultWorkingDirectory)/postmancollection/json_data.postman_collection.json
+      COLLECTION_PATH=$(System.DefaultWorkingDirectory)/postmancollection/POC_Test_data.postman_collection.json
       echo "Postman collection path: $COLLECTION_PATH"
 
       if [ -f "$COLLECTION_PATH" ]; then
