@@ -7,8 +7,6 @@ steps:
       projects: '**/**/Rsp.IrasService.csproj'
       arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid) -p:ContainerImageName=rsp-irasService'
       #arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid) -p:ContainerRegistry=crrspacaypvupdevuks.azurecr.io -p:ContainerImageName=irasService -p:ContainerRepository=irasServiceRepository'
-
-steps:
   - task: AzureContainerApps@1
     inputs:
       acrName: 'crrspacaypvupdevuks'
