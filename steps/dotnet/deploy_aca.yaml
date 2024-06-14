@@ -8,4 +8,4 @@ steps:
       ingress: 'internal'
       azureSubscription: $(azureServiceConnection)
       location: 'uksouth'
-      imageToDeploy: 'rsp-irasService:$(buildid)'
+      imageToDeploy: 'crrspacaypvupdevuks.azurecr.io/rsp-irasService:$(buildid)'
