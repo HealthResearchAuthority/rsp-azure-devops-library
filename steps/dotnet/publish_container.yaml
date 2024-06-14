@@ -21,5 +21,6 @@ steps:
       scriptType: pscore
       scriptLocation: inlineScript
       inlineScript: |
+        az acr login --name crrspacaypvupdevuks.azurecr.io
         docker tag rsp-irasservice:$(buildid) crrspacaypvupdevuks.azurecr.io/rsp-irasservice:$(buildid)
         docker push crrspacaypvupdevuks.azurecr.io/rsp-irasservice:$(buildid)
