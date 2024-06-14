@@ -4,10 +4,6 @@ parameters:
 
 steps:
   - checkout: ${{ parameters.repo }}
-
-  - checkout: library
-    path: DevOps/rsp-azure-devops-library
-
   - task: Npm@1
     displayName: 'Install Dependencies'
     inputs:
@@ -21,13 +17,9 @@ steps:
 
   - script: |
       echo "Content of Test_Data.JSON:"
-      cat $(System.DefaultWorkingDirectory)/DevOps/rsp-azure-devops-library/steps/data/Test_Data.JSON
+      cat $(System.DefaultWorkingDirectory)/resources/testdata/Test_Data.JSON
 
-      # Read the JSON content using cat
-      requestBody=$(cat $(System.DefaultWorkingDirectory)/DevOps/rsp-azure-devops-library/steps/data/Test_Data.JSON)
-      echo "Request Body: $requestBody"
-
-      newman run $(System.DefaultWorkingDirectory)/postmancollection/Json_data.postman_collection.json --env-var "requestBody=$requestBody" -r htmlextra --reporter-htmlextra-export $(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/TestResults/API_Test_Report.html
+      newman run $(System.DefaultWorkingDirectory)/postmancollection/Json_data.postman_collection.json --env-var "requestBody=$(cat $(System.DefaultWorkingDirectory)/resources/testdata/Test_Data.JSON)" -r htmlextra --reporter-htmlextra-export $(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/TestResults/API_Test_Report.html
     displayName: 'Run Postman API Tests'
 
   - task: PublishBuildArtifacts@1
