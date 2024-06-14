@@ -12,8 +12,8 @@ steps:
       customCommand: 'install newman -g'
 
   - script: |
-      npm install -g newman-reporter-htmlextra
-    displayName: 'Install Dependency to generate HTML report'
+      npm install -g newman-reporter-htmlextra jq
+    displayName: 'Install Dependency to generate HTML report and jq'
 
   - script: |
       echo "Content of Test_Data.JSON:"
@@ -33,6 +33,8 @@ steps:
         exit 1
       fi
 
+      echo "Running Newman command..."
+      set -x
       newman run "$COLLECTION_PATH" --env-var "requestBody=$JSON_DATA" -r htmlextra --reporter-htmlextra-export $(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/TestResults/API_Test_Report.html
     displayName: 'Run Postman API Tests'
 
