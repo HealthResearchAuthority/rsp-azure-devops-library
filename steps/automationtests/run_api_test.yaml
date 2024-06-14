@@ -16,26 +16,35 @@ steps:
     displayName: 'Install Dependency to generate HTML report and jq'
 
   - script: |
-      echo "Content of Test_Data.JSON:"
-      cat $(System.DefaultWorkingDirectory)/resources/testdata/Test_Data.json
-
-      JSON_DATA=$(cat $(System.DefaultWorkingDirectory)/resources/testdata/Test_Data.json)
-      echo "Content of JSON_DATA variable:"
-      echo "$JSON_DATA"
+      echo "Running Newman command..."
 
       COLLECTION_PATH=$(System.DefaultWorkingDirectory)/postmancollection/POC_Test_data.postman_collection.json
-      echo "Postman collection path: $COLLECTION_PATH"
+      REPORT_PATH=$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/TestResults/API_Test_Report.html
+      JSON_FILE_PATH=$(System.DefaultWorkingDirectory)/resources/testdata/Test_Data.json
 
-      if [ -f "$COLLECTION_PATH" ]; then
-        echo "Postman collection exists."
-      else
-        echo "Postman collection does not exists."  
+
+      echo "Postman collection path: $COLLECTION_PATH"
+      echo "Report Path: $REPORT_PATH"
+      echo "Json file path: $JSON_FILE_PATH"
+
+      if [ ! -f "$COLLECTION_PATH" ]; then
+        echo "Postman collection does not exists."
         exit 1
       fi
 
-      echo "Running Newman command..."
+      if [ ! -f "$JSON_FILE_PATH" ]; then
+        echo "JSON file does not exists."
+        exit 1
+      fi
+
+      JSON_DATA=$(jq -c . < "$JSON_FILE_PATH")
+      echo "Encoded JSON_DATA varaiable"
+      echo "$JSON_DATA"
+
+      
       set -x
-      newman run "$COLLECTION_PATH" --env-var "requestBody=$JSON_DATA" -r htmlextra --reporter-htmlextra-export $(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/TestResults/API_Test_Report.html
+      newman run "$COLLECTION_PATH" --env-var "requestBody=$JSON_DATA" -r htmlextra --reporter-htmlextra-export "$REPORT_PATH"
+      set +x
     displayName: 'Run Postman API Tests'
 
   - task: PublishBuildArtifacts@1
