@@ -17,5 +17,4 @@ steps:
       ingress: 'internal'
       azureSubscription: $(azureServiceConnection)
       location: 'uksouth'
-      appSourcePath: $(System.DefaultWorkingDirectory)
-      containerRegistry: 
+      appSourcePath: '**/**/Rsp.IrasService.csproj'
