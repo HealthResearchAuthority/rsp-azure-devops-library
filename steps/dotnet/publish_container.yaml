@@ -17,4 +17,5 @@ steps:
       ingress: 'internal'
       azureSubscription: $(azureServiceConnection)
       location: 'uksouth'
-      appSourcePath: $(Build.SourcesDirectory)
+      appSourcePath: $(System.DefaultWorkingDirectory)
+      containerRegistry: 
