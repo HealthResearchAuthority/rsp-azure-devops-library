@@ -14,10 +14,10 @@ steps:
 
   - script: |
       echo "Content of Test_Data.JSON:"
-      cat $(System.DefaultWorkingDirectory)/data/Test_Data.JSON
+      cat $(System.DefaultWorkingDirectory)/steps/data/Test_Data.JSON
 
       # Read the JSON content using cat
-      requestBody=$(cat $(System.DefaultWorkingDirectory)/data/Test_Data.JSON)
+      requestBody=$(cat $(System.DefaultWorkingDirectory)/steps/data/Test_Data.JSON)
       echo "Request Body: $requestBody"
 
       npm install -g newman-reporter-htmlextra
