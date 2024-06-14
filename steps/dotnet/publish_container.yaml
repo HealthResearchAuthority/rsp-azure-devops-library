@@ -15,11 +15,11 @@ steps:
   #     tags: rsp-irasservice:$(buildid)
   #     repository: rsp-irasservice
   - task: AzureCLI@2
-      displayName: Build and Push to DEV ACR
-      inputs:
-        azureSubscription: $(acrDevConnection)
-        scriptType: pscore
-        scriptLocation: inlineScript
-        inlineScript: |
-          docker tag rsp-irasservice:$(buildid) crrspacaypvupdevuks.azurecr.io/rsp-irasservice:$(buildid)
-          docker push crrspacaypvupdevuks.azurecr.io/rsp-irasservice:$(buildid)
+    displayName: Build and Push to DEV ACR
+    inputs:
+      azureSubscription: $(acrDevConnection)
+      scriptType: pscore
+      scriptLocation: inlineScript
+      inlineScript: |
+        docker tag rsp-irasservice:$(buildid) crrspacaypvupdevuks.azurecr.io/rsp-irasservice:$(buildid)
+        docker push crrspacaypvupdevuks.azurecr.io/rsp-irasservice:$(buildid)
