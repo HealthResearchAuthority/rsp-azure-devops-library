@@ -3,4 +3,4 @@ steps:
     displayName: 'ACR Login'
     inputs:
       command: "login"
-      containerRegistry: 'ACRDevConnection'
+      containerRegistry: 'ACR Dev Connection'
