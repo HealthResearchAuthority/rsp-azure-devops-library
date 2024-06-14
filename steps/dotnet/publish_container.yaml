@@ -5,15 +5,5 @@ steps:
       command: "publish"
       publishWebProjects: false
       projects: '**/**/Rsp.IrasService.csproj'
-      arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid) -p:ContainerImageName=rsp-irasService -p:ContainerRegistry=crrspacaypvupdevuks.azurecr.io'
+      arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid) -p:ContainerRepository=rsp-irasservice -p:ContainerRegistry=crrspacaypvupdevuks.azurecr.io'
       #arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid) -p:ContainerRegistry=crrspacaypvupdevuks.azurecr.io -p:ContainerImageName=irasService -p:ContainerRepository=irasServiceRepository'
-  # - task: AzureContainerApps@1
-  #   inputs:
-  #     acrName: 'crrspacaypvupdevuks'
-  #     containerAppName: 'ca-simple-hello'
-  #     resourceGroup: 'rg-rsp-aca-spoke-dev-uks'
-  #     containerAppEnvironment: 'cae-rsp-aca-dev-uks'
-  #     ingress: 'internal'
-  #     azureSubscription: $(azureServiceConnection)
-  #     location: 'uksouth'
-  #     imageToDeploy: 'rsp-irasService:$(buildid)'

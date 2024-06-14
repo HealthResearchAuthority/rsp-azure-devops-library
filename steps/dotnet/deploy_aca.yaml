@@ -1,10 +1,11 @@
 steps:
-  - checkout: self
-  - checkout: service_defaults
-  - task: DotNetCoreCLI@2
-    displayName: 'Publish container'
+  - task: AzureContainerApps@1
     inputs:
-      command: "publish"
-      publishWebProjects: false
-      projects: '**/**/Rsp.IrasService.csproj'
-      arguments: "-t:PublishContainer ContainerImageTags='$(Build.BuildId)'"
+      acrName: 'crrspacaypvupdevuks'
+      containerAppName: 'ca-simple-hello'
+      resourceGroup: 'rg-rsp-aca-spoke-dev-uks'
+      containerAppEnvironment: 'cae-rsp-aca-dev-uks'
+      ingress: 'internal'
+      azureSubscription: $(azureServiceConnection)
+      location: 'uksouth'
+      imageToDeploy: 'rsp-irasService:$(buildid)'
