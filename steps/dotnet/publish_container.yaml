@@ -11,5 +11,5 @@ steps:
     displayName: 'Tag and Push'
     inputs:
       command: "push"
-      containerRegistry: crrspacaypvupdevuks.azurecr.io
+      containerRegistry: $(acrDevConnection)
       tags: crrspacaypvupdevuks.azurecr.io/rsp-irasservice:$(buildid)
