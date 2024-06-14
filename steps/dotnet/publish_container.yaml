@@ -7,20 +7,15 @@ steps:
       projects: '**/**/Rsp.IrasService.csproj'
       arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid) -p:ContainerImageName=rsp-irasService'
       #arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid) -p:ContainerRegistry=crrspacaypvupdevuks.azurecr.io -p:ContainerImageName=irasService -p:ContainerRepository=irasServiceRepository'
-  - task: Docker@2
-    displayName: Push
-    inputs:
-      command: buildAndPush
-      repository: rsp-irasService
 
-# steps:
-#   - task: AzureContainerApps@1
-#     inputs:
-#       acrName: 'crrspacaypvupdevuks'
-#       containerAppName: 'ca-simple-hello'
-#       resourceGroup: 'rg-rsp-aca-spoke-dev-uks'
-#       containerAppEnvironment: 'cae-rsp-aca-dev-uks'
-#       ingress: 'internal'
-#       azureSubscription: $(azureServiceConnection)
-#       location: 'uksouth'
-#       appSourcePath: '**/**/Rsp.IrasService.csproj'
+steps:
+  - task: AzureContainerApps@1
+    inputs:
+      acrName: 'crrspacaypvupdevuks'
+      containerAppName: 'ca-simple-hello'
+      resourceGroup: 'rg-rsp-aca-spoke-dev-uks'
+      containerAppEnvironment: 'cae-rsp-aca-dev-uks'
+      ingress: 'internal'
+      azureSubscription: $(azureServiceConnection)
+      location: 'uksouth'
+      imageToDeploy: 'rsp-irasService:$(buildid)'
