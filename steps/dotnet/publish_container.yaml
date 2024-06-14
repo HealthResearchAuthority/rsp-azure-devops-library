@@ -8,7 +8,7 @@ steps:
       arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid) -p:ContainerImageName=rsp-irasService'
       #arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid) -p:ContainerRegistry=crrspacaypvupdevuks.azurecr.io -p:ContainerImageName=irasService -p:ContainerRepository=irasServiceRepository'
   - task: Docker@2
-    displayName: Build and Push
+    displayName: Push
     inputs:
       command: buildAndPush
       repository: rsp-irasService
