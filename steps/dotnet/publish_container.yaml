@@ -13,3 +13,4 @@ steps:
       command: "push"
       containerRegistry: $(acrDevConnection)
       tags: rsp-irasservice:$(buildid)
+      repository: rsp-irasservice
