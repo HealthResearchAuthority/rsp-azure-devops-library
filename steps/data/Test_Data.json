@@ -1,0 +1,74 @@
+[
+    {
+        "id": 0,
+        "category": {
+            "id": 1,
+            "name": "check1"
+        },
+        "name": "percey",
+        "photoUrls": [
+            "www.test.com"
+        ],
+        "tags": [
+            {
+                "id": 1,
+                "name": "string1"
+            }
+        ],
+        "status": "available"
+    },
+    {
+        "id": 0,
+        "category": {
+            "id": 2,
+            "name": "check2"
+        },
+        "name": "lio",
+        "photoUrls": [
+            "www.test2.com"
+        ],
+        "tags": [
+            {
+                "id": 2,
+                "name": "string2"
+            }
+        ],
+        "status": "not available"
+    },
+    {
+        "id": 0,
+        "category": {
+            "id": 3,
+            "name": "check3"
+        },
+        "name": "den",
+        "photoUrls": [
+            "www.test3.com"
+        ],
+        "tags": [
+            {
+                "id": 3,
+                "name": "string3"
+            }
+        ],
+        "status": "available"
+    },
+    {
+        "id": 0,
+        "category": {
+            "id": 4,
+            "name": "check4"
+        },
+        "name": "ken",
+        "photoUrls": [
+            "www.test4.com"
+        ],
+        "tags": [
+            {
+                "id": 4,
+                "name": "string4"
+            }
+        ],
+        "status": "not available"
+    }
+]
