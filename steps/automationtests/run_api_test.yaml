@@ -17,7 +17,7 @@ steps:
     displayName: 'Install Dependency to generate HTML report'
 
   - script: |
-      newman run $(System.DefaultWorkingDirectory)/postmancollection/Json_data.postman_collection.json --env-var "requestBody=$(cat $(System.DefaultWorkingDirectory)/data/Test_Data.JSON" -r htmlextra --reporter-htmlextra-export $(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/TestResults/API_Test_Report.html
+      newman run $(System.DefaultWorkingDirectory)/postmancollection/Json_data.postman_collection.json --env-var "requestBody=$(cat $(System.DefaultWorkingDirectory)/data/Test_Data.JSON)" -r htmlextra --reporter-htmlextra-export $(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/TestResults/API_Test_Report.html
     displayName: 'Run Postman API Tests'
 
   - task: PublishBuildArtifacts@1
