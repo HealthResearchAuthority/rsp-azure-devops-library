@@ -8,7 +8,7 @@ steps:
   - task: DownloadSecureFile@1
     name: downloadTestData
     inputs:
-      secureFile: 'Test_Data_JSON'
+      secureFile: 'Test_Data.JSON'
 
   - task: Npm@1
     displayName: 'Install Dependencies'
