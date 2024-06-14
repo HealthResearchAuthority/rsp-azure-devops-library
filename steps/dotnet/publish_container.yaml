@@ -5,8 +5,8 @@ steps:
       command: "publish"
       publishWebProjects: false
       projects: '**/**/Rsp.IrasService.csproj'
-      arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid)'
-      #arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid) -p:ContainerRegistry=crrspacaypvupdevuks.azurecr.io -p:ContainerImageName=irasServiceAPI'
+      #arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid)'
+      arguments: '-t:PublishContainer -p ContainerImageTags=$(buildid) -p:ContainerRegistry=crrspacaypvupdevuks.azurecr.io -p:ContainerImageName=irasService -p:ContainerRepository=irasServiceReposority'
 
 # steps:
 #   - task: AzureContainerApps@1
