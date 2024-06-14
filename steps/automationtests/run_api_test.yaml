@@ -43,7 +43,7 @@ steps:
 
       
       set -x
-      newman run "$COLLECTION_PATH" --global-var "requestBody=$JSON_DATA" -r htmlextra --reporter-htmlextra-export "$REPORT_PATH"
+      newman run "$COLLECTION_PATH" -d "requestBody=$JSON_DATA" -r htmlextra --reporter-htmlextra-export "$REPORT_PATH"
       set +x
     displayName: 'Run Postman API Tests'
 
