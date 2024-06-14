@@ -17,9 +17,9 @@ steps:
 
   - script: |
       echo "Content of Test_Data.JSON:"
-      cat $(System.DefaultWorkingDirectory)/resources/testdata/Test_Data.JSON
+      cat $(System.DefaultWorkingDirectory)/resources/testdata/Test_Data.json
 
-      newman run $(System.DefaultWorkingDirectory)/postmancollection/Json_data.postman_collection.json --env-var "requestBody=$(cat $(System.DefaultWorkingDirectory)/resources/testdata/Test_Data.JSON)" -r htmlextra --reporter-htmlextra-export $(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/TestResults/API_Test_Report.html
+      newman run $(System.DefaultWorkingDirectory)/postmancollection/json_data.postman_collection.json --env-var "requestBody=$(cat $(System.DefaultWorkingDirectory)/resources/testdata/Test_Data.json)" -r htmlextra --reporter-htmlextra-export $(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/TestResults/API_Test_Report.html
     displayName: 'Run Postman API Tests'
 
   - task: PublishBuildArtifacts@1
