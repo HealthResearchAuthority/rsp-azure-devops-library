@@ -5,6 +5,9 @@ parameters:
 steps:
   - checkout: ${{ parameters.repo }}
 
+  - checkout: library
+    path: DevOps/rsp-azure-devops-library
+
   - task: Npm@1
     displayName: 'Install Dependencies'
     inputs:
