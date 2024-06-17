@@ -2,7 +2,7 @@ steps:
   - task: AzureContainerApps@1
     inputs:
       acrName: 'crrspacaypvupdevuks'
-      containerAppName: 'ca-simple-hello'
+      containerAppName: 'irasservice'
       resourceGroup: 'rg-rsp-aca-spoke-dev-uks'
       containerAppEnvironment: 'cae-rsp-aca-dev-uks'
       ingress: 'internal'
