@@ -12,39 +12,11 @@ steps:
       customCommand: 'install newman -g'
 
   - script: |
-      npm install -g newman-reporter-htmlextra jq
-    displayName: 'Install Dependency to generate HTML report and jq'
+      npm install -g newman-reporter-htmlextra
+    displayName: 'Install Dependency to generate HTML report'
 
   - script: |
-      echo "Running Newman command..."
-
-      COLLECTION_PATH=$(System.DefaultWorkingDirectory)/postmancollection/POC_Test_data.postman_collection.json
-      REPORT_PATH=$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/TestResults/API_Test_Report.html
-      JSON_FILE_PATH=$(System.DefaultWorkingDirectory)/resources/testdata/Test_Data.json
-
-
-      echo "Postman collection path: $COLLECTION_PATH"
-      echo "Report Path: $REPORT_PATH"
-      echo "Json file path: $JSON_FILE_PATH"
-
-      if [ ! -f "$COLLECTION_PATH" ]; then
-        echo "Postman collection does not exists."
-        exit 1
-      fi
-
-      if [ ! -f "$JSON_FILE_PATH" ]; then
-        echo "JSON file does not exists."
-        exit 1
-      fi
-
-      JSON_DATA=$(jq -c . < "$JSON_FILE_PATH")
-      echo "Encoded JSON_DATA varaiable"
-      echo "$JSON_DATA"
-
-      
-      set -x
-      newman run "$COLLECTION_PATH" -d "$(System.DefaultWorkingDirectory)/resources/testdata/Test_Data.json" -r htmlextra --reporter-htmlextra-export "$REPORT_PATH"
-      set +x
+      newman run $(System.DefaultWorkingDirectory)/postmancollection/POC_Test_data.postman_collection.json -d "$(System.DefaultWorkingDirectory)/resources/testdata/Test_Data.json" -r htmlextra --reporter-htmlextra-export $(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/TestResults/API_Test_Report.html
     displayName: 'Run Postman API Tests'
 
   - task: PublishBuildArtifacts@1
