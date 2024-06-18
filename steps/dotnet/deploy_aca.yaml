@@ -9,5 +9,5 @@ steps:
       azureSubscription: $(azureServiceConnection)
       location: 'uksouth'
       imageToDeploy: 'crrspacaypvupdevuks.azurecr.io/rsp-irasService:$(buildid)'
-      acrUsername: 'crrspacaypvupdevuks'
-      acrPassword: 'JxYRGEsMe5j8ZlebQTMdeU1ENQGzFE4fPVKKG0EOoY+ACRDNB+hs'
+      # acrUsername: 'crrspacaypvupdevuks'
+      # acrPassword: 'JxYRGEsMe5j8ZlebQTMdeU1ENQGzFE4fPVKKG0EOoY+ACRDNB+hs'
