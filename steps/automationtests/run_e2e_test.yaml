@@ -21,13 +21,24 @@ steps:
     displayName: "Install Playwright with Browsers"
 
   - script: |
-      npx bddgen && npx playwright test
+      npx bddgen --tags "@authSetup or @Smoke" && npx playwright test
+    condition: ne(variables['Build.Reason'], 'Schedule')
     env:
       BROWSER: ${{ parameters.browser }}
       CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests"
+
+  - script: |
+      npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" && npx playwright test
+    condition: eq(variables['Build.Reason'], 'Schedule')
+    env:
+      BROWSER: ${{ parameters.browser }}
+      CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
+      CI: 'true'
+    timeoutInMinutes: ${{ parameters.timeout }}
+    displayName: "Run Tests - Scheduled Runs"
 
   - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/playwright'
     condition: always()
