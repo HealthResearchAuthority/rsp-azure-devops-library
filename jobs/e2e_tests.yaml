@@ -24,7 +24,7 @@ jobs:
   steps:
     # sonar cloud code analysis configuration
     - ${{ if parameters.run_sonarcloud_analysis }}:
-      - template: ../steps/codeanalysis/prepare_analysis_configuration.yaml
+      - template: ../steps/codeanalysis/cli_prepare_analysis_configuration.yaml
         parameters:
           project_key: ${{ parameters.sonar_project_key }}
           project_name: ${{ parameters.sonar_project_name }}
