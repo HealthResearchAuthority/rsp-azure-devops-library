@@ -11,6 +11,11 @@ parameters:
   - name: tests_run_timeout
     type: number
     default: 10
+  - name: sonar_project_key
+  - name: sonar_project_name
+  - name: run_sonarcloud_analysis
+    type: boolean
+    default: false
 
 jobs:
 - job: 'RunAutomatedE2ETests'
