@@ -1,0 +1,13 @@
+parameters:
+  - name: project_key
+  - name: project_name
+
+steps:
+  - task: SonarCloudPrepare@1
+    inputs:
+      SonarCloud: 'Sonar Cloud Connection'
+      organization: 'futureiras'
+      scannerMode: 'CLI'
+      configMode: 'manual'
+      cliProjectKey: ${{ parameters.project_key }}
+      cliProjectName: ${{ parameters.project_name }}
