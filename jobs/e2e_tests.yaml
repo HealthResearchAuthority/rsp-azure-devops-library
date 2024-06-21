@@ -35,6 +35,11 @@ jobs:
         reportDirectory: ${{ parameters.reportDirectory }}
         timeout: ${{ parameters.tests_run_timeout }}
         repo: ${{ parameters.repo }}
+
+    # sonar cloud run code analysis
+    - ${{ if parameters.run_sonarcloud_analysis }}:
+      - template: ../steps/codeanalysis/run_code_analysis.yaml
+      - template: ../steps/codeanalysis/publish_quality_gate_result.yaml
     
     # set to default by false, will be set to true in the main nightly run pipeline
     # this is to prevent exporting the report to SharePoint with every automated run.
