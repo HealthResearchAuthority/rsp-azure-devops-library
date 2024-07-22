@@ -1,0 +1,11 @@
+steps:
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'publish'
+      publishWebProjects: true
+  - task: AzureWebApp@1
+    inputs:
+      azureSubscription: 'ARM Dev Connection New'
+      appType: 'webAppLinux'
+      appName: 'irasportal-dev'
+      package: '$(System.DefaultWorkingDirectory)/**/*.zip'
