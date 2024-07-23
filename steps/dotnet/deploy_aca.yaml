@@ -4,7 +4,7 @@ steps:
       azureSubscription: $(azureServiceConnection)
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
-      inlineScript: 'az containerapps up --name irasservice --image crrspacaypvupdevuks.azurecr.io/rsp-irasService:$(Build.BuildId) ----environment cae-rsp-aca-dev-uks --ingress internal -l uksouth'
+      inlineScript: 'az containerapps up --name irasservice --image crrspacaypvupdevuks.azurecr.io/rsp-irasService:$(Build.BuildId) --environment cae-rsp-aca-dev-uks --ingress internal -l uksouth'
   # - task: AzureContainerApps@1
   #   inputs:
   #     acrName: 'crrspacaypvupdevuks'
