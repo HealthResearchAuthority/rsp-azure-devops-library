@@ -4,11 +4,13 @@ steps:
       azureSubscription: '$(azureServiceConnection)'
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
-      inlineScript: 'az containerapps up --name irasservice --image crrspacaypvupdevuks.azurecr.io/rsp-irasService:$(Build.BuildId) --environment cae-rsp-aca-dev-uks --ingress internal --location uksouth --resource-group rg-rsp-sharedservices-spoke-dev-uks --registry-server crrspshared2i2oqdevuks.azurecr.io'
-  #     containerAppName: 'irasservice'
-  #     resourceGroup: 'rg-rsp-aca-spoke-dev-uks'
-  #     containerAppEnvironment: 'cae-rsp-aca-dev-uks'
-  #     ingress: 'internal'
+      inlineScript: 'az containerapp update --container-name irasservice --image crrspshared2i2oqdevuks.azurecr.io/rsp-irasservice:$(Build.BuildId) --resource-group rg-rsp-applications-spoke-dev-uks --revision-suffix $(Build.BuildId) --name irasservice'
+  # - task: AzureContainerApps@1
+  #   inputs:
   #     azureSubscription: $(azureServiceConnection)
+  #     containerAppName: 'irasservice'
+  #     resourceGroup: 'rg-rsp-applications-spoke-dev-uks'
+  #     containerAppEnvironment: 'cae-rsp-applications-dev-uks'
+  #     ingress: 'internal'
   #     location: 'uksouth'
-  #     imageToDeploy: 'crrspacaypvupdevuks.azurecr.io/rsp-irasService:$(Build.BuildId)'
+  #     imageToDeploy: 'crrspshared2i2oqdevuks.azurecr.io/rsp-irasservice:$(Build.BuildId)'
