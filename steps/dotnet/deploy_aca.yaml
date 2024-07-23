@@ -1,11 +1,17 @@
 steps:
-  - task: AzureContainerApps@1
+  - task: AzureCLI@2
     inputs:
-      acrName: 'crrspacaypvupdevuks'
-      containerAppName: 'irasservice'
-      resourceGroup: 'rg-rsp-aca-spoke-dev-uks'
-      containerAppEnvironment: 'cae-rsp-aca-dev-uks'
-      ingress: 'internal'
       azureSubscription: $(azureServiceConnection)
-      location: 'uksouth'
-      imageToDeploy: 'crrspacaypvupdevuks.azurecr.io/rsp-irasService:$(Build.BuildId)'
+      scriptType: 'bash'
+      scriptLocation: 'inlineScript'
+      inlineScript: 'az containerapps up --name irasservice --image crrspacaypvupdevuks.azurecr.io/rsp-irasService:$(Build.BuildId) ----environment cae-rsp-aca-dev-uks --ingress internal -l uksouth'
+  # - task: AzureContainerApps@1
+  #   inputs:
+  #     acrName: 'crrspacaypvupdevuks'
+  #     containerAppName: 'irasservice'
+  #     resourceGroup: 'rg-rsp-aca-spoke-dev-uks'
+  #     containerAppEnvironment: 'cae-rsp-aca-dev-uks'
+  #     ingress: 'internal'
+  #     azureSubscription: $(azureServiceConnection)
+  #     location: 'uksouth'
+  #     imageToDeploy: 'crrspacaypvupdevuks.azurecr.io/rsp-irasService:$(Build.BuildId)'
