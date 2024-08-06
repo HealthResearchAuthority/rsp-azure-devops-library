@@ -17,5 +17,6 @@ jobs:
         - checkout: ${{ parameters.service_defaults_repo }}
       - template: ../steps/dotnet/restore_from_feed.yaml
       - template: ../steps/dotnet/acr_login.yaml
+      - template: ../steps/gittools/semantic_versioning.yaml
       - template: ../steps/dotnet/publish_container.yaml
       - template: ../steps/dotnet/deploy_aca.yaml
