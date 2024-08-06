@@ -2,51 +2,13 @@ steps:
   - checkout: self
     fetchDepth: 0
 
-  - task: gitversion/setup@3.0.0
-    displayName: Install GitVersion
+  - task: gitversion/setup@3
+    displayName: Installing GitVersion
     inputs:
       versionSpec: '6.x'
-
-  - task: gitversion/execute@3.0.0
-    displayName: Determine Version
-    name: version_step
-
-  - pwsh: |
-      echo "FullSemVer (fullSemVer) : $(fullSemVer)"
-    displayName: Display GitVersion variables (without prefix)
-
-  - pwsh: |
-      echo "FullSemVer (GitVersion_FullSemVer) : $(GitVersion_FullSemVer)"
-    displayName: Display GitVersion variables (with prefix)
-
-  - pwsh: |
-      echo "FullSemVer (version_step.fullSemVer) : $(version_step.fullSemVer)"
-    displayName: Display GitVersion outputs (step output without prefix)
-
-  - pwsh: |
-      echo "FullSemVer (version_step.GitVersion_FullSemVer) : $(version_step.GitVersion_FullSemVer)"
-    displayName: Display GitVersion outputs (step output with prefix)
-
-  - pwsh: |
-      echo "FullSemVer (env:myvar_fullSemVer) : $env:myvar_fullSemVer"
-    displayName: Display mapped local env (pwsh - outputs without prefix)
-    env:
-      myvar_fullSemVer: $(version_step.fullSemVer)
-
-  - pwsh: |
-      echo "FullSemVer (env:myvar_GitVersion_FullSemVer) : $env:myvar_GitVersion_FullSemVer"
-    displayName: Display mapped local env (pwsh - outputs with prefix)
-    env:
-      myvar_GitVersion_FullSemVer: $(version_step.GitVersion_FullSemVer)
-
-  - bash: |
-      echo "FullSemVer (myvar_fullSemVer) : $myvar_fullSemVer"
-    displayName: Display mapped local env (bash - outputs without prefix)
-    env:
-      myvar_fullSemVer: $(version_step.fullSemVer)
-
-  - bash: |
-      echo "FullSemVer (myvar_GitVersion_FullSemVer) : $myvar_GitVersion_FullSemVer"
-    displayName: Display mapped local env (bash - outputs with prefix)
-    env:
-      myvar_GitVersion_FullSemVer: $(version_step.GitVersion_FullSemVer)
+  
+  - task: gitversion/execute@3
+    name: semver
+    displayName: Calculate Semantic Version
+    inputs:
+      targetPath: '$(Build.SourcesDirectory)/$(Build.Repository.Name)'

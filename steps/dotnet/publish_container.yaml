@@ -5,7 +5,7 @@ steps:
       command: "publish"
       publishWebProjects: false
       projects: '**/**/Rsp.IrasService.csproj'
-      arguments: '-t:PublishContainer -p ContainerImageTags=$(Build.BuildId)'
+      arguments: '-t:PublishContainer -p ContainerImageTags=$(semver.majorMinorPatch)'
   - task: AzureCLI@2
     displayName: Build and Push to DEV ACR
     inputs:
@@ -14,5 +14,5 @@ steps:
       scriptLocation: inlineScript
       inlineScript: |
         az acr login --name crrspshared2i2oqdevuks
-        docker tag rsp-irasservice:$(Build.BuildId) crrspshared2i2oqdevuks.azurecr.io/rsp-irasservice:$(Build.BuildId)
-        docker push crrspshared2i2oqdevuks.azurecr.io/rsp-irasservice:$(Build.BuildId)
+        docker tag rsp-irasservice:$(semver.majorMinorPatch) crrspshared2i2oqdevuks.azurecr.io/rsp-irasservice:$(semver.majorMinorPatch)
+        docker push crrspshared2i2oqdevuks.azurecr.io/rsp-irasservice:$(semver.majorMinorPatch)
