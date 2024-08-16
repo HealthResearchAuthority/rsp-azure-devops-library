@@ -32,7 +32,7 @@ steps:
 
   - script: |
       npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" && npx playwright test
-    condition: and(eq(variables['Build.Reason'], 'Schedule'), ne(variables['DayOfWeek'], 'Tuesday'), ne(variables['DayOfWeek'], 'Thursday'))
+    condition: and(eq(variables['Build.Reason'], 'Schedule'), ne(variables['DayOfWeek'], 'Friday'), ne(variables['DayOfWeek'], 'Thursday'))
     env:
       BROWSER: ${{ parameters.browser }}
       CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
@@ -42,7 +42,7 @@ steps:
 
   - script: |
       npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" && npx playwright test
-    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Tuesday'))
+    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Friday'))
     env:
       BROWSER: ios
       CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
