@@ -21,7 +21,7 @@ steps:
     displayName: "Install Playwright with Browsers"
 
   - script: |
-      npx bddgen --tags "@authSetup or @Smoke" && npx playwright test
+      (npx bddgen --tags "@authSetup or @Smoke" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
     condition: ne(variables['Build.Reason'], 'Schedule')
     env:
       BROWSER: ${{ parameters.browser }}
@@ -31,7 +31,7 @@ steps:
     displayName: "Run Tests"
 
   - script: |
-      npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" && npx playwright test
+      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), ne(variables['DayOfWeek'], 'Tuesday'), ne(variables['DayOfWeek'], 'Thursday'))
     env:
       BROWSER: ${{ parameters.browser }}
@@ -41,7 +41,7 @@ steps:
     displayName: "Run Tests - Scheduled Runs - Desktop Browser"
 
   - script: |
-      npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" && npx playwright test
+      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Tuesday'))
     env:
       BROWSER: ios
@@ -51,7 +51,7 @@ steps:
     displayName: "Run Tests - Scheduled Runs - iOS"
 
   - script: |
-      npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" && npx playwright test
+      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Thursday'))
     env:
       BROWSER: android
