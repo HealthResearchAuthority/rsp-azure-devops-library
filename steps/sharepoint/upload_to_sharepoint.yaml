@@ -14,4 +14,4 @@ steps:
       conflictBehaviour: 'replace'
       targetFolder: ${{ parameters.sharepoint_target_folder }}
       sourceFolder: ${{ parameters.source_folder }}
-      contents: '**/*.html'
+      contents: '**'
