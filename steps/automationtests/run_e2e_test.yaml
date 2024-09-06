@@ -32,13 +32,13 @@ steps:
 
   - script: |
       (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
-    condition: and(eq(variables['Build.Reason'], 'Schedule'), ne(variables['DayOfWeek'], 'Tuesday'), ne(variables['DayOfWeek'], 'Thursday'))
+    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Monday'))
     env:
-      BROWSER: ${{ parameters.browser }}
+      BROWSER: chromium
       CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - Desktop Browser"
+    displayName: "Run Tests - Scheduled Runs - Desktop Google Chrome"
 
   - script: |
       (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
@@ -52,6 +52,16 @@ steps:
 
   - script: |
       (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
+    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Wednesday'))
+    env:
+      BROWSER: firefox
+      CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
+      CI: 'true'
+    timeoutInMinutes: ${{ parameters.timeout }}
+    displayName: "Run Tests - Scheduled Runs - Desktop Mozilla Firefox"
+
+  - script: |
+      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Thursday'))
     env:
       BROWSER: android
@@ -59,6 +69,16 @@ steps:
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Android"
+
+  - script: |
+      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
+    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Friday'))
+    env:
+      BROWSER: safari
+      CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
+      CI: 'true'
+    timeoutInMinutes: ${{ parameters.timeout }}
+    displayName: "Run Tests - Scheduled Runs - Desktop Safari"
 
   - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/playwright'
     condition: always()
