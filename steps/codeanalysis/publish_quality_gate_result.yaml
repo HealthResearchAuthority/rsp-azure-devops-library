@@ -1,4 +1,4 @@
 steps:
-  - task: SonarCloudPublish@1
+  - task: SonarCloudPublish@2
     inputs:
       pollingTimeoutSec: '300'
