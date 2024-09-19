@@ -15,7 +15,7 @@ parameters:
   - name: sonar_project_name
   - name: run_sonarcloud_analysis
     type: boolean
-    default: false
+    default: true
 
 jobs:
 - job: 'RunAutomatedE2ETests'
