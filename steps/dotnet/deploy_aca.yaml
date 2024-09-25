@@ -1,7 +1,19 @@
 steps:
-  - task: AzureCLI@2
+  - task: AzureContainerApps@1
     inputs:
-      azureSubscription: '$(azureServiceConnection)'
-      scriptType: 'bash'
-      scriptLocation: 'inlineScript'
-      inlineScript: 'az containerapp update --container-name $(containerAppName) --image crrspshared2i2oqdevuks.azurecr.io/$(acrContainerName):$(Build.BuildId) --resource-group rg-rsp-applications-spoke-dev-uks --revision-suffix $(Build.BuildId) --name $(containerAppName)'
+      acrName: crrspshared2i2oqdevuks
+      acrUsername: $(acrUserName)
+      acrPassword: $(acrPassword)
+      azureSubscription: $(azureServiceConnection)
+      containerAppEnvironment: cae-rsp-applications-dev-uks
+      containerAppName: $(containerAppName)
+      imageToDeploy: crrspshared2i2oqdevuks.azurecr.io/$(acrContainerName):$(Build.BuildId)
+      resourceGroup: rg-rsp-applications-spoke-dev-uks
+      location: "UK South"
+
+  # - task: AzureCLI@2
+  #   inputs:
+  #     azureSubscription: '$(azureServiceConnection)'
+  #     scriptType: 'bash'
+  #     scriptLocation: 'inlineScript'
+  #     inlineScript: 'az containerapp update --container-name $(containerAppName) --image crrspshared2i2oqdevuks.azurecr.io/$(acrContainerName):$(Build.BuildId) --resource-group rg-rsp-applications-spoke-dev-uks --revision-suffix $(Build.BuildId) --name $(containerAppName)'
