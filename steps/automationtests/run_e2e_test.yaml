@@ -25,7 +25,7 @@ steps:
     condition: ne(variables['Build.Reason'], 'Schedule')
     env:
       BROWSER: ${{ parameters.browser }}
-      CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
+      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests"
@@ -35,7 +35,7 @@ steps:
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Monday'))
     env:
       BROWSER: chromium
-      CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
+      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Google Chrome"
@@ -45,7 +45,7 @@ steps:
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Tuesday'))
     env:
       BROWSER: ios
-      CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
+      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - iOS"
@@ -55,7 +55,7 @@ steps:
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Wednesday'))
     env:
       BROWSER: firefox
-      CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
+      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Mozilla Firefox"
@@ -65,7 +65,7 @@ steps:
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Thursday'))
     env:
       BROWSER: android
-      CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
+      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Android"
@@ -75,7 +75,7 @@ steps:
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Friday'))
     env:
       BROWSER: safari
-      CONTACT_MANAGER_ONLY_PASS: $(CONTACT_MANAGER_ONLY_PASS)
+      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Safari"
