@@ -21,71 +21,71 @@ steps:
     displayName: "Install Playwright with Browsers"
 
   - script: |
-      (npx bddgen --tags "@authSetup or @Smoke" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
+      (npx bddgen --tags "@authSetup or @Smoke") && (npx playwright test)
     condition: ne(variables['Build.Reason'], 'Schedule')
     env:
       BROWSER: ${{ parameters.browser }}
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests"
 
   - script: |
-      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
+      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Monday'))
     env:
       BROWSER: chromium
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Google Chrome"
 
   - script: |
-      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
+      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Tuesday'))
     env:
       BROWSER: ios
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - iOS"
 
   - script: |
-      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
+      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Wednesday'))
     env:
       BROWSER: firefox
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Mozilla Firefox"
 
   - script: |
-      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
+      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Thursday'))
     env:
       BROWSER: android
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Android"
 
   - script: |
-      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest" || true) && (npx playwright test || true) && (npx ts-node ./src/utils/Report.ts)
+      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Friday'))
     env:
       BROWSER: safari
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Safari"
 
-  - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/playwright'
+  - publish: "$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/playwright"
     condition: always()
     artifact: playwright-report
     displayName: Publish Playwright Report
 
-  - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/cucumber'
+  - publish: "$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/cucumber"
     condition: always()
     artifact: cucumber-report
     displayName: Publish Cucumber Report
