@@ -3,7 +3,7 @@ parameters:
   - name: project_name
 
 steps:
-  - task: SonarCloudPrepare@2
+  - task: SonarCloudPrepare@3
     inputs:
       SonarCloud: 'Sonar Cloud Connection'
       organization: 'futureiras'
