@@ -10,7 +10,7 @@ parameters:
     default: self
   - name: tests_run_timeout
     type: number
-    default: 10
+    default: 15
   - name: sonar_project_key
   - name: sonar_project_name
   - name: run_sonarcloud_analysis
