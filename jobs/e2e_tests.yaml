@@ -20,7 +20,7 @@ parameters:
 jobs:
 - job: 'RunAutomatedE2ETests'
   displayName: 'Run Automated E2E Tests'
-  timeoutInMinutes: 10
+  timeoutInMinutes: ${{ parameters.tests_run_timeout }}
   steps:
     - task: PowerShell@2
       inputs:
