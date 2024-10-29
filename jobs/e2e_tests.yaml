@@ -18,7 +18,7 @@ parameters:
     default: self
   - name: tests_run_timeout
     type: number
-    default: 10
+    default: 20
   - name: sonar_project_key
   - name: sonar_project_name
   - name: run_sonarcloud_analysis
@@ -29,13 +29,13 @@ parameters:
     default: false
 
 jobs:
-  - job: "RunAutomatedE2ETests"
-    displayName: "Run Automated E2E Tests"
-    timeoutInMinutes: 10
+  - job: 'RunAutomatedE2ETests'
+    displayName: 'Run Automated E2E Tests'
+    timeoutInMinutes: ${{ parameters.tests_run_timeout }}
     steps:
       - task: PowerShell@2
         inputs:
-          targetType: "inline"
+          targetType: 'inline'
           script: |
             $day = $(Get-Date -Format dddd);
             Write-Host "##vso[task.setvariable variable=DayOfWeek]$day"
