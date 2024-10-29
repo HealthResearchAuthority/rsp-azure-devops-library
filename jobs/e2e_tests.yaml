@@ -1,6 +1,14 @@
 parameters:
+  - name: platform
+    default: desktop
   - name: browser
     default: chromium
+  - name: mobile_os
+    default: N/A
+  - name: android_device
+    default: N/A
+  - name: ios_device
+    default: N/A
   - name: reportDirectory
     default: test-reports
   - name: upload_to_sharepoint
@@ -10,49 +18,57 @@ parameters:
     default: self
   - name: tests_run_timeout
     type: number
-    default: 20
+    default: 10
   - name: sonar_project_key
   - name: sonar_project_name
   - name: run_sonarcloud_analysis
     type: boolean
     default: true
+  - name: run_accessibility_tests
+    type: boolean
+    default: false
 
 jobs:
-- job: 'RunAutomatedE2ETests'
-  displayName: 'Run Automated E2E Tests'
-  timeoutInMinutes: ${{ parameters.tests_run_timeout }}
-  steps:
-    - task: PowerShell@2
-      inputs:
-        targetType: 'inline'
-        script: |
-          $day = $(Get-Date -Format dddd);
-          Write-Host "##vso[task.setvariable variable=DayOfWeek]$day"  
+  - job: "RunAutomatedE2ETests"
+    displayName: "Run Automated E2E Tests"
+    timeoutInMinutes: 10
+    steps:
+      - task: PowerShell@2
+        inputs:
+          targetType: "inline"
+          script: |
+            $day = $(Get-Date -Format dddd);
+            Write-Host "##vso[task.setvariable variable=DayOfWeek]$day"
 
-    # sonar cloud code analysis configuration
-    - ${{ if parameters.run_sonarcloud_analysis }}:
-      - template: ../steps/codeanalysis/cli_prepare_analysis_configuration.yaml
+      # sonar cloud code analysis configuration
+      - ${{ if parameters.run_sonarcloud_analysis }}:
+          - template: ../steps/codeanalysis/cli_prepare_analysis_configuration.yaml
+            parameters:
+              project_key: ${{ parameters.sonar_project_key }}
+              project_name: ${{ parameters.sonar_project_name }}
+
+      - template: ../steps/automationtests/run_e2e_test.yaml
         parameters:
-          project_key: ${{ parameters.sonar_project_key }}
-          project_name: ${{ parameters.sonar_project_name }}
+          platform: ${{ parameters.platform }}
+          browser: ${{ parameters.browser }}
+          mobile_os: ${{ parameters.mobile_os }}
+          android_device: ${{ parameters.android_device }}
+          ios_device: ${{ parameters.ios_device }}
+          run_accessibility_tests: ${{ parameters.run_accessibility_tests }}
+          reportDirectory: ${{ parameters.reportDirectory }}
+          timeout: ${{ parameters.tests_run_timeout }}
+          repo: ${{ parameters.repo }}
 
-    - template: ../steps/automationtests/run_e2e_test.yaml
-      parameters:
-        browser: ${{ parameters.browser }}
-        reportDirectory: ${{ parameters.reportDirectory }}
-        timeout: ${{ parameters.tests_run_timeout }}
-        repo: ${{ parameters.repo }}
+      # sonar cloud run code analysis
+      - ${{ if parameters.run_sonarcloud_analysis }}:
+          - template: ../steps/codeanalysis/run_code_analysis.yaml
+          - template: ../steps/codeanalysis/publish_quality_gate_result.yaml
 
-    # sonar cloud run code analysis
-    - ${{ if parameters.run_sonarcloud_analysis }}:
-      - template: ../steps/codeanalysis/run_code_analysis.yaml
-      - template: ../steps/codeanalysis/publish_quality_gate_result.yaml
-    
-    # set to default by false, will be set to true in the main nightly run pipeline
-    # this is to prevent exporting the report to SharePoint with every automated run.
-    - ${{ if parameters.upload_to_sharepoint }}:
-      - template: ../steps/sharepoint/upload_to_sharepoint.yaml
-        parameters:
-          sharepoint_drive_id: $(sharepoint_drive_id)
-          sharepoint_target_folder: $(sharepoint_target_folder)
-          source_folder: $(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}
+      # set to default by false, will be set to true in the main nightly run pipeline
+      # this is to prevent exporting the report to SharePoint with every automated run.
+      - ${{ if parameters.upload_to_sharepoint }}:
+          - template: ../steps/sharepoint/upload_to_sharepoint.yaml
+            parameters:
+              sharepoint_drive_id: $(sharepoint_drive_id)
+              sharepoint_target_folder: $(sharepoint_target_folder)
+              source_folder: $(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}

@@ -1,5 +1,10 @@
 parameters:
+  - name: platform
   - name: browser
+  - name: mobile_os
+  - name: android_device
+  - name: ios_device
+  - name: run_accessibility_tests
   - name: reportDirectory
   - name: repo
   - name: timeout
@@ -22,19 +27,41 @@ steps:
 
   - script: |
       (npx bddgen --tags "@authSetup or @Smoke") && (npx playwright test)
-    condition: ne(variables['Build.Reason'], 'Schedule')
+    condition: and(ne(variables['Build.Reason'], 'Schedule'), ${{ eq(parameters.run_accessibility_tests, false) }})
     env:
+      PLATFORM: ${{ parameters.platform }}
       BROWSER: ${{ parameters.browser }}
+      OS_TYPE: ${{ parameters.mobile_os }}
+      ANDROID_Device: ${{ parameters.android_device }}
+      IOS_Device: ${{ parameters.ios_device }}
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests"
+    displayName: "Run Smoke Tests"
+
+  - script: |
+      (npx bddgen --tags "@authSetup or @axeAccessibility") && (npx playwright test)
+    condition: and(ne(variables['Build.Reason'], 'Schedule'), ${{ eq(parameters.run_accessibility_tests, true) }})
+    env:
+      PLATFORM: ${{ parameters.platform }}
+      BROWSER: ${{ parameters.browser }}
+      OS_TYPE: ${{ parameters.mobile_os }}
+      ANDROID_Device: ${{ parameters.android_device }}
+      IOS_Device: ${{ parameters.ios_device }}
+      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      CI: "true"
+    timeoutInMinutes: ${{ parameters.timeout }}
+    displayName: "Run Accessibility Tests"
 
   - script: |
       (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Monday'))
     env:
+      PLATFORM: desktop
       BROWSER: chromium
+      OS_TYPE: N/A
+      ANDROID_Device: N/A
+      IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
@@ -44,17 +71,25 @@ steps:
       (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Tuesday'))
     env:
-      BROWSER: ios
+      PLATFORM: mobile
+      BROWSER: N/A
+      OS_TYPE: iOS
+      ANDROID_Device: N/A
+      IOS_Device: iPhone 15 Pro
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - iOS"
+    displayName: "Run Tests - Scheduled Runs - iOS Device - iPhone 15 Pro"
 
   - script: |
       (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Wednesday'))
     env:
+      PLATFORM: desktop
       BROWSER: firefox
+      OS_TYPE: N/A
+      ANDROID_Device: N/A
+      IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
@@ -64,17 +99,25 @@ steps:
       (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Thursday'))
     env:
-      BROWSER: android
+      PLATFORM: mobile
+      BROWSER: N/A
+      OS_TYPE: Android
+      ANDROID_Device: Pixel 7
+      IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - Android"
+    displayName: "Run Tests - Scheduled Runs - Android Device - Pixel 7"
 
   - script: |
       (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Friday'))
     env:
+      PLATFORM: desktop
       BROWSER: safari
+      OS_TYPE: N/A
+      ANDROID_Device: N/A
+      IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
@@ -89,3 +132,8 @@ steps:
     condition: always()
     artifact: cucumber-report
     displayName: Publish Cucumber Report
+
+  - publish: "$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/axeAccessibility"
+    condition: ${{ eq(parameters.run_accessibility_tests, true) }}
+    artifact: accessibility-report
+    displayName: Publish Axe accessibility Report
