@@ -1,7 +1,8 @@
 steps:
   - task: AzureCLI@2
+    displayName: Deploy to $(containerAppName)
     inputs:
-      azureSubscription: '$(azureServiceConnection)'
+      azureSubscription: $(service_connection)
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
-      inlineScript: 'az containerapp update --container-name $(containerAppName) --image crrspshared2i2oqdevuks.azurecr.io/$(acrContainerName):$(Build.BuildId) --resource-group rg-rsp-applications-spoke-dev-uks --revision-suffix $(Build.BuildId) --name $(containerAppName)'
+      inlineScript: az containerapp update --container-name $(containerAppName) --image $(ContainerRegistryName).azurecr.io/$(acrContainerName):$(Build.BuildId) --resource-group $(ApplicationResourceGroup) --revision-suffix $(Build.BuildId) --name $(containerAppName)

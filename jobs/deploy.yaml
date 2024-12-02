@@ -7,7 +7,7 @@ parameters:
 
 jobs:
   - job: Deploy
-    displayName: Deploy to Dev
+    displayName: Deploy
     steps:
       - template: ../steps/nuget/installer.yaml
       - template: ../steps/dotnet/installer.yaml

@@ -6,13 +6,29 @@ steps:
       publishWebProjects: false
       projects: '**/**/$(projectForContainerBuild)'
       arguments: '-t:PublishContainer -p ContainerImageTags=$(Build.BuildId)'
-  - task: AzureCLI@2
-    displayName: Build and Push to DEV ACR
+  - task: PowerShell@2
+    displayName: Print acrContainerName
     inputs:
-      azureSubscription: $(azureServiceConnection)
+      targetType: 'inline'
+      script: '"$(acrContainerName)"'
+  - task: PowerShell@2
+    displayName: Print publishContainerName
+    inputs:
+      targetType: 'inline'
+      script: '"$(publishContainerName)"'
+  - task: PowerShell@2
+    displayName: Print Container Reg Name ContainerRegistryName
+    inputs:
+      targetType: 'inline'
+      script: | 
+        echo "Container Registry Name: $(ContainerRegistryName)"
+  - task: AzureCLI@2
+    displayName: Build and Push to ACR
+    inputs:
+      azureSubscription: $(service_connection)
       scriptType: pscore
       scriptLocation: inlineScript
       inlineScript: |
-        az acr login --name crrspshared2i2oqdevuks
-        docker tag $(publishContainerName):$(Build.BuildId) crrspshared2i2oqdevuks.azurecr.io/$(acrContainerName):$(Build.BuildId)
-        docker push crrspshared2i2oqdevuks.azurecr.io/$(acrContainerName):$(Build.BuildId)
+        az acr login --name $(ContainerRegistryName)
+        docker tag $(publishContainerName):$(Build.BuildId) $(ContainerRegistryName).azurecr.io/$(acrContainerName):$(Build.BuildId)
+        docker push $(ContainerRegistryName).azurecr.io/$(acrContainerName):$(Build.BuildId)

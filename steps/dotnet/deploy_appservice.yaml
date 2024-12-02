@@ -5,7 +5,7 @@ steps:
       publishWebProjects: true
   - task: AzureWebApp@1
     inputs:
-      azureSubscription: 'ARM Dev Connection New'
+      azureSubscription: $(service_connection)
       appType: 'webAppLinux'
-      appName: 'irasportal-dev'
+      appName: $(AppServiceName)
       package: '$(System.DefaultWorkingDirectory)/**/*.zip'
