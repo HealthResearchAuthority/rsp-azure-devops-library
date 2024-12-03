@@ -4,8 +4,27 @@ steps:
       command: 'publish'
       publishWebProjects: true
   - task: AzureWebApp@1
+    displayName: 'Deploy Web App'
     inputs:
       azureSubscription: $(service_connection)
       appType: 'webAppLinux'
       appName: $(AppServiceName)
       package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+  - task: AzureAppServiceSettings@1
+    displayName: 'Update App Settings'
+    inputs: 
+      azureSubscription: $(service_connection)
+      appName: $(AppServiceName)
+      appSettings: |
+        [
+          {
+            "name": "AppSettings__AzureAppConfiguration__Endpoint", 
+            "value": "$(AppConfigurationEndpoint)", 
+            "slotSetting": false
+          },
+          {
+            "name": "AppSettings__AzureAppConfiguration__IdentityClientID", 
+            "value": "$(AppConfigurationClientID)", 
+            "slotSetting": false
+          }
+        ]
