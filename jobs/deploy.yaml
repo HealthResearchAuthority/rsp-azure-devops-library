@@ -4,9 +4,16 @@ parameters:
     default: false
   - name: service_defaults_repo
     default: ''
+  - name: depends_on
+    default: ''
 
 jobs:
   - job: Deploy
+    ${{ if ne('', parameters.depends_on) }}:
+      dependsOn: ${{ parameters.depends_on }}
+      condition: succeeded()
+    ${{ if eq('', parameters.depends_on) }}:
+      dependsOn: []
     displayName: Deploy
     steps:
       - template: ../steps/nuget/installer.yaml

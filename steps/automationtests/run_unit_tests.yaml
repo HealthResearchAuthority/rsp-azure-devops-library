@@ -7,7 +7,13 @@ steps:
       testRunTitle: "Running Unit Tests"
       nobuild: true
       #arguments: "--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover%2cjson /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage/ /p:MergeWith=$(Build.SourcesDirectory)/TestResults/Coverage/coverage.json"
-      arguments: '--no-restore --logger:"xunit;LogFilePath=test_results.xml" --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+      arguments: >
+        --no-restore
+        --logger:"xunit;LogFilePath=test_results.xml"
+        --configuration $(buildConfiguration)
+        --collect "Code Coverage"
+        "/p:CoverletOutputFormat=\"opencover,cobertura\""
+        /p:CollectCoverage=true
       publishTestResults: false
     
     # Publish Test Results v2
