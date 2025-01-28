@@ -5,4 +5,10 @@ steps:
       azureSubscription: $(service_connection)
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
-      inlineScript: az containerapp update --container-name $(containerAppName) --image $(ContainerRegistryName).azurecr.io/$(acrContainerName):$(Build.BuildId) --resource-group $(ApplicationResourceGroup) --revision-suffix $(Build.BuildId) --name $(containerAppName)
+      inlineScript: az containerapp update --container-name $(containerAppName) --image $(ContainerRegistryName).azurecr.io/$(acrContainerName):$(Build.BuildId) \
+                   --resource-group $(ApplicationResourceGroup) --revision-suffix $(Build.BuildId) --name $(containerAppName) \
+                   --set properties.template.containers[0].probes[0].type="Startup" /
+                   --set properties.template.containers[0].probes[0].httpGet.path="/" /
+                   --set properties.template.containers[0].probes[0].httpGet.port=80 /
+                   --set properties.template.containers[0].probes[0].initialDelaySeconds=20 /
+                   --set properties.template.containers[0].probes[0].periodSeconds=3
