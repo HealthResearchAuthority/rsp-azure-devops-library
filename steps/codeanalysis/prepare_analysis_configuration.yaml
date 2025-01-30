@@ -5,8 +5,8 @@ parameters:
 steps:
   - task: SonarCloudPrepare@3
     inputs:
-      SonarCloud: 'Sonar Cloud Connection'
-      organization: 'futureiras'
+      SonarCloud: 'Sonar Cloud GitHub'
+      organization: 'healthresearchauthority'
       scannerMode: 'dotnet'
       msBuildVersion: '9.0.2.104486'
       projectKey: ${{ parameters.project_key }}
