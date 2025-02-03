@@ -24,6 +24,11 @@ steps:
   - script: |
       npx playwright install --with-deps
     displayName: "Install Playwright with Browsers"
+    
+  - script: |
+      npx playwright install --force msedge
+      npx playwright install --force chrome
+    displayName: "Install Branded Browsers"
 
   - script: |
       (npx bddgen --tags "@authSetup or @Smoke") && (npx playwright test)
