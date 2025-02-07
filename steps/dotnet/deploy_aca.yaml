@@ -5,4 +5,5 @@ steps:
       azureSubscription: $(service_connection)
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
-      inlineScript: az containerapp update --container-name $(containerAppName) --image $(ContainerRegistryName).azurecr.io/$(acrContainerName):$(Build.BuildId) --resource-group $(ApplicationResourceGroup) --revision-suffix $(Build.BuildId) --name $(containerAppName)
+      inlineScript: az containerapp update --container-name $(containerAppName) --image $(ContainerRegistryName).azurecr.io/$(acrContainerName):$(Build.BuildId) \
+                   --resource-group $(ApplicationResourceGroup) --revision-suffix $(Build.BuildId) --name $(containerAppName) \

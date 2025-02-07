@@ -1,0 +1,30 @@
+steps:
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'publish'
+      publishWebProjects: true
+  - task: AzureFunctionApp@2
+    displayName: 'Deploy Function App'
+    inputs:
+      azureSubscription: $(service_connection)
+      appType: 'functionAppLinux'
+      appName: $(FunctionAppServiceName)
+      package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+  # - task: AzureAppServiceSettings@1
+  #   displayName: 'Update App Settings'
+  #   inputs: 
+  #     azureSubscription: $(service_connection)
+  #     appName: $(AppServiceName)
+  #     appSettings: |
+  #       [
+  #         {
+  #           "name": "AppSettings__AzureAppConfiguration__Endpoint", 
+  #           "value": "$(AppConfigurationEndpoint)", 
+  #           "slotSetting": false
+  #         },
+  #         {
+  #           "name": "AppSettings__AzureAppConfiguration__IdentityClientID", 
+  #           "value": "$(AppConfigurationClientID)", 
+  #           "slotSetting": false
+  #         }
+  #       ]
