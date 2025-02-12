@@ -63,18 +63,32 @@ steps:
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Monday'))
     env:
       PLATFORM: desktop
-      BROWSER: chromium
+      BROWSER: google chrome
       OS_TYPE: N/A
       ANDROID_Device: N/A
       IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - Desktop Chromium"
+    displayName: "Run Tests - Scheduled Runs - Desktop Google Chrome"
 
   - script: |
       (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Tuesday'))
+    env:
+      PLATFORM: desktop
+      BROWSER: microsoft edge
+      OS_TYPE: N/A
+      ANDROID_Device: N/A
+      IOS_Device: N/A
+      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      CI: 'true'
+    timeoutInMinutes: ${{ parameters.timeout }}
+    displayName: "Run Tests - Scheduled Runs - Desktop Microsoft Edge"  
+
+  - script: |
+      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
+    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Wednesday'))
     env:
       PLATFORM: mobile
       BROWSER: N/A
@@ -84,21 +98,7 @@ steps:
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - iOS Device - $(IOS_Device)"
-
-  - script: |
-      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
-    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Wednesday'))
-    env:
-      PLATFORM: desktop
-      BROWSER: firefox
-      OS_TYPE: N/A
-      ANDROID_Device: N/A
-      IOS_Device: N/A
-      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
-    timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - Desktop Mozilla Firefox"
+    displayName: "Run Tests - Scheduled Runs - iOS Device - $(IOS_Device)"  
 
   - script: |
       (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
@@ -119,6 +119,20 @@ steps:
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Friday'))
     env:
       PLATFORM: desktop
+      BROWSER: firefox
+      OS_TYPE: N/A
+      ANDROID_Device: N/A
+      IOS_Device: N/A
+      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      CI: 'true'
+    timeoutInMinutes: ${{ parameters.timeout }}
+    displayName: "Run Tests - Scheduled Runs - Desktop Mozilla Firefox"  
+
+  - script: |
+      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
+    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Saturday'))
+    env:
+      PLATFORM: desktop
       BROWSER: safari
       OS_TYPE: N/A
       ANDROID_Device: N/A
@@ -130,31 +144,17 @@ steps:
 
   - script: |
       (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
-    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Saturday'))
-    env:
-      PLATFORM: desktop
-      BROWSER: google chrome
-      OS_TYPE: N/A
-      ANDROID_Device: N/A
-      IOS_Device: N/A
-      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
-    timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - Desktop Google Chrome"
-
-  - script: |
-      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Sunday'))
     env:
       PLATFORM: desktop
-      BROWSER: microsoft edge
+      BROWSER: chromium
       OS_TYPE: N/A
       ANDROID_Device: N/A
       IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - Desktop Microsoft Edge"
+    displayName: "Run Tests - Scheduled Runs - Desktop Chromium"  
 
   - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/playwright'
     condition: always()
