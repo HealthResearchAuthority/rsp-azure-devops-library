@@ -31,4 +31,6 @@ steps:
       inlineScript: |
         az acr login --name $(ContainerRegistryName)
         docker tag $(publishContainerName):$(Build.BuildId) $(ContainerRegistryName).azurecr.io/$(acrContainerName):$(Build.BuildId)
+        docker tag $(publishContainerName):$(Build.BuildId) $(ContainerRegistryName).azurecr.io/$(acrContainerName):latest
         docker push $(ContainerRegistryName).azurecr.io/$(acrContainerName):$(Build.BuildId)
+        docker push $(ContainerRegistryName).azurecr.io/$(acrContainerName):latest
