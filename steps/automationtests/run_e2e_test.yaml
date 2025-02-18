@@ -156,15 +156,10 @@ steps:
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Chromium"  
 
-  - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/playwright'
+  - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}'
     condition: always()
-    artifact: playwright-report
-    displayName: Publish Playwright Report
-
-  - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/cucumber'
-    condition: always()
-    artifact: cucumber-report
-    displayName: Publish Cucumber Report
+    artifact: test-report
+    displayName: Publish Test Report
 
   - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/axeAccessibility'
     condition: ${{ eq(parameters.run_accessibility_tests, true) }}
