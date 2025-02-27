@@ -11,3 +11,5 @@ steps:
       configMode: 'manual'
       cliProjectKey: ${{ parameters.project_key }}
       cliProjectName: ${{ parameters.project_name }}
+      extraProperties: |
+        sonar.scanner.metadataFilePath=$(Agent.TempDirectory)/sonar/$(Build.BuildNumber)/test/report-task.txt
