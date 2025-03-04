@@ -1,5 +1,4 @@
 parameters:
-    default: false
   - name: depends_on
     default: ''
 
