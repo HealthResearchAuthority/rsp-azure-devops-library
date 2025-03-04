@@ -2,7 +2,7 @@ steps:
   - task: DotNetCoreCLI@2
     inputs:
       command: 'publish'
-      publishWebProjects: true
+      publishWebProjects: false
   - task: AzureFunctionApp@2
     displayName: 'Deploy Function App'
     inputs:
