@@ -3,7 +3,7 @@ steps:
     inputs:
       command: 'publish'
       publishWebProjects: false
-      projects: '**/*.csproj'
+      projects: '**/Rsp.RtsImport.csproj'
   - task: AzureFunctionApp@2
     displayName: 'Deploy Function App'
     inputs:
