@@ -1,0 +1,19 @@
+parameters:
+    default: false
+  - name: depends_on
+    default: ''
+
+jobs:
+  - job: Deploy
+    ${{ if ne('', parameters.depends_on) }}:
+      dependsOn: ${{ parameters.depends_on }}
+      condition: succeeded()
+    ${{ if eq('', parameters.depends_on) }}:
+      dependsOn: []
+    displayName: DeployFunction
+    steps:
+      - template: ../steps/nuget/installer.yaml
+      - template: ../steps/dotnet/installer.yaml
+      - template: ../steps/dotnet/install_report_generator.yaml
+      - template: ../steps/dotnet/restore_from_feed.yaml
+      - template: ../steps/dotnet/deploy_funtion.yaml
