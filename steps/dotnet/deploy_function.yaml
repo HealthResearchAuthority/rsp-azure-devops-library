@@ -26,7 +26,7 @@ steps:
       azureSubscription: $(service_connection)
       appType: 'functionApp'
       appName: $(FunctionAppServiceName)
-      package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'
+      package: '$(Pipeline.Workspace)/drop/build$(Build.BuildId).zip'
 
   - task: AzureAppServiceSettings@1
     displayName: 'Update Function App Settings'
