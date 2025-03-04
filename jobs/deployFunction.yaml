@@ -1,5 +1,4 @@
 parameters:
-    default: false
   - name: depends_on
     default: ''
 
@@ -16,4 +15,4 @@ jobs:
       - template: ../steps/dotnet/installer.yaml
       - template: ../steps/dotnet/install_report_generator.yaml
       - template: ../steps/dotnet/restore_from_feed.yaml
-      - template: ../steps/dotnet/deploy_funtion.yaml
+      - template: ../steps/dotnet/deploy_function.yaml
