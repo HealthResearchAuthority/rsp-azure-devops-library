@@ -26,7 +26,7 @@ steps:
       azureSubscription: $(service_connection)
       appType: 'functionApp'
       appName: $(FunctionAppServiceName)
-      package: '$(System.ArtifactsDirectory)/**/*.zip'
+      package: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
   - task: AzureAppServiceSettings@1
     displayName: 'Update Function App Settings'
