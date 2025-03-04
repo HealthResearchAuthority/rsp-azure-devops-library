@@ -8,7 +8,7 @@ steps:
     displayName: 'Deploy Function App'
     inputs:
       azureSubscription: $(service_connection)
-      appType: 'functionAppLinux'
+      appType: 'functionApp'
       appName: $(FunctionAppServiceName)
       package: '$(System.DefaultWorkingDirectory)/**/*.zip'
   # - task: AzureAppServiceSettings@1
