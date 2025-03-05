@@ -5,9 +5,11 @@ parameters:
 steps:
   - task: SonarCloudPrepare@3
     inputs:
-      SonarCloud: 'Sonar Cloud Connection'
-      organization: 'futureiras'
+      SonarCloud: 'Sonar Cloud GitHub'
+      organization: 'healthresearchauthority'
       scannerMode: 'CLI'
       configMode: 'manual'
       cliProjectKey: ${{ parameters.project_key }}
       cliProjectName: ${{ parameters.project_name }}
+      extraProperties: |
+        sonar.scanner.metadataFilePath=$(Agent.TempDirectory)/sonar/$(Build.BuildNumber)/test/report-task.txt

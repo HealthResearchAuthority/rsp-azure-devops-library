@@ -5,8 +5,8 @@ parameters:
 steps:
   - task: SonarCloudPrepare@3
     inputs:
-      SonarCloud: 'Sonar Cloud Connection'
-      organization: 'futureiras'
+      SonarCloud: 'Sonar Cloud GitHub'
+      organization: 'healthresearchauthority'
       scannerMode: 'dotnet'
       msBuildVersion: '9.0.2.104486'
       projectKey: ${{ parameters.project_key }}
@@ -14,6 +14,7 @@ steps:
       extraProperties: |
         sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/coverage.opencover.xml
         sonar.cs.xunit.reportsPaths=$(Build.SourcesDirectory)/**/test_results.xml
+        sonar.scanner.metadataFilePath=$(Agent.TempDirectory)/sonar/$(Build.BuildNumber)/test/report-task.txt
 
   - task: Cache@2
     displayName: Cache SonarScanner

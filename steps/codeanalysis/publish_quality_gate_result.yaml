@@ -2,3 +2,9 @@ steps:
   - task: SonarCloudPublish@3
     inputs:
       pollingTimeoutSec: '300'
+
+  - task: sonarcloud-buildbreaker@2
+    displayName: 'Quality Gate Validation'
+    inputs:
+      SonarCloud: 'Sonar Cloud GitHub'
+      Organization: 'healthresearchauthority'
