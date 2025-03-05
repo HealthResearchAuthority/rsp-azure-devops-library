@@ -32,7 +32,7 @@ steps:
     displayName: 'Update Function App Settings'
     inputs: 
       azureSubscription: $(service_connection)
-      appName: $(AppServiceName)
+      appName: $(FunctionAppServiceName)
       appSettings: |
         [
           {
