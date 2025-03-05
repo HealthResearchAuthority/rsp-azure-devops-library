@@ -9,10 +9,10 @@ jobs:
       condition: succeeded()
     ${{ if eq('', parameters.depends_on) }}:
       dependsOn: []
-    displayName: DeployFunction
+    displayName: Deploy to Function App
     steps:
       - template: ../steps/nuget/installer.yaml
       - template: ../steps/dotnet/installer.yaml
-      - template: ../steps/dotnet/install_report_generator.yaml
+      - template: ../steps/dotnet/install_report_generator.yaml      
       - template: ../steps/dotnet/restore_from_feed.yaml
       - template: ../steps/dotnet/deploy_function.yaml
