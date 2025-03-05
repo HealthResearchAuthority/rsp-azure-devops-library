@@ -7,7 +7,7 @@ steps:
       zipAfterPublish: false
       modifyOutputPath: false 
       projects: '**/*.csproj'
-      
+
   - task: ArchiveFiles@2
     displayName: "Archive files"
     inputs:
@@ -73,6 +73,16 @@ steps:
           {
             "name": "AppSettings__RtsApiBaseUrl", 
             "value": "$(RtsApiBaseUrl)", 
+            "slotSetting": false
+          },
+          {
+            "name": "AppSettings__AzureAppConfiguration__Endpoint", 
+            "value": "$(AppConfigurationEndpoint)", 
+            "slotSetting": false
+          },
+          {
+            "name": "AppSettings__AzureAppConfiguration__IdentityClientID", 
+            "value": "$(AppConfigurationClientID)", 
             "slotSetting": false
           }
         ]
