@@ -1,3 +1,7 @@
+parameters:
+  - name: appSettings    
+    default: ''
+
 steps:
   - task: DotNetCoreCLI@2
     inputs:
@@ -33,16 +37,4 @@ steps:
     inputs: 
       azureSubscription: $(service_connection)
       appName: $(FunctionAppServiceName)
-      appSettings: |
-        [          
-          {
-            "name": "AppSettings__AzureAppConfiguration__Endpoint", 
-            "value": "$(AppConfigurationEndpoint)", 
-            "slotSetting": false
-          },
-          {
-            "name": "AppSettings__AzureAppConfiguration__IdentityClientID", 
-            "value": "$(AppConfigurationClientID)", 
-            "slotSetting": false
-          }
-        ]
+      appSettings: ${{ parameters.appSettings }}
