@@ -25,24 +25,15 @@ steps:
     inputs:
       azureSubscription: $(service_connection)
       appType: 'functionApp'
-      appName: $(FunctionAppServiceName)
+      appName: $(EmailNotificationAppName)
       package: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
   - task: AzureAppServiceSettings@1
     displayName: 'Update Function App Settings'
     inputs: 
       azureSubscription: $(service_connection)
-      appName: $(FunctionAppServiceName)
+      appName: $(EmailNotificationAppName)
       appSettings: |
-        [          
-          {
-            "name": "AppSettings__AzureAppConfiguration__Endpoint", 
-            "value": "$(AppConfigurationEndpoint)", 
-            "slotSetting": false
-          },
-          {
-            "name": "AppSettings__AzureAppConfiguration__IdentityClientID", 
-            "value": "$(AppConfigurationClientID)", 
-            "slotSetting": false
-          }
-        ]
+        -AppSettings__AzureAppConfiguration__Endpoint $(AppConfigurationEndpoint) 
+        -AppSettings__AzureAppConfiguration__IdentityClientID $(AppConfigurationClientID) 
+        -AppSettings__QueueName $(EmailNotificationQueueName) 
