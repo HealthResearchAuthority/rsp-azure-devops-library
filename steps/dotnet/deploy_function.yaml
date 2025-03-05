@@ -12,15 +12,15 @@ steps:
     displayName: 'Deploy Function App'
     inputs:
       azureSubscription: $(service_connection)
-      appType: 'functionAppLinux'
-      appName: $(FunctionAppServiceName)
+      appType: 'functionApp'
+      appName: $(EmailNotificationAppName)
       package: '$(Build.ArtifactStagingDirectory)/*.zip'
 
   - task: AzureAppServiceSettings@1
     displayName: 'Update Function App Settings'
     inputs:
       azureSubscription: $(service_connection)
-      appName: $(FunctionAppServiceName)
+      appName: $(EmailNotificationAppName)
       appSettings: |
         -AppSettings__AzureAppConfiguration__Endpoint $(AppConfigurationEndpoint) 
         -AppSettings__AzureAppConfiguration__IdentityClientID $(AppConfigurationClientID) 
