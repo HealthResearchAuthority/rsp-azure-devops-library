@@ -29,12 +29,12 @@ steps:
     inputs:
       azureSubscription: $(service_connection)
       appType: 'functionApp'
-      appName: $(FunctionAppServiceName)
+      appName: $(FunctionAppName)
       package: '$(System.DefaultWorkingDirectory)/**/*.zip'
 
   - task: AzureAppServiceSettings@1
     displayName: 'Update Function App Settings'
     inputs: 
       azureSubscription: $(service_connection)
-      appName: $(FunctionAppServiceName)
+      appName: $(FunctionAppName)
       appSettings: ${{ parameters.appSettings }}
