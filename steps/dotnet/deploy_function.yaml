@@ -34,47 +34,7 @@ steps:
       azureSubscription: $(service_connection)
       appName: $(FunctionAppServiceName)
       appSettings: |
-        [
-          {
-            "name": "AppSettings__RtsApiId", 
-            "value": "$(RtsApiId)", 
-            "slotSetting": false
-          },
-          {
-            "name": "AppSettings__RtsApiSecret", 
-            "value": "$(RtsApiSecret)", 
-            "slotSetting": false
-          },
-          {
-            "name": "AppSettings__AzureVaultUri", 
-            "value": "$(AzureVaultUri)", 
-            "slotSetting": false
-          },
-          {
-            "name": "AppSettings__RtsAuthUrl", 
-            "value": "$(RtsAuthUrl)", 
-            "slotSetting": false
-          },
-          {
-            "name": "AppSettings__RtsOrgDataUrl", 
-            "value": "$(RtsOrgDataUrl)", 
-            "slotSetting": false
-          },
-          {
-            "name": "AppSettings__RtsRolesDataUrl", 
-            "value": "$(RtsRolesDataUrl)", 
-            "slotSetting": false
-          },
-          {
-            "name": "AppSettings__RtsTermsetDataUrl", 
-            "value": "$(RtsTermsetDataUrl)", 
-            "slotSetting": false
-          },
-          {
-            "name": "AppSettings__RtsApiBaseUrl", 
-            "value": "$(RtsApiBaseUrl)", 
-            "slotSetting": false
-          },
+        [          
           {
             "name": "AppSettings__AzureAppConfiguration__Endpoint", 
             "value": "$(AppConfigurationEndpoint)", 
