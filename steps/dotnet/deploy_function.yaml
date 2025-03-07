@@ -1,0 +1,40 @@
+parameters:
+  - name: appSettings    
+    default: ''
+
+steps:
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'publish'
+      arguments: '--configuration Release --output publish_output'
+      publishWebProjects: false
+      zipAfterPublish: false
+      modifyOutputPath: false 
+      projects: '**/*.csproj'
+
+  - task: ArchiveFiles@2
+    displayName: "Archive files"
+    inputs:
+      rootFolderOrFile: "$(System.DefaultWorkingDirectory)/publish_output"
+      includeRootFolder: false
+      archiveFile: "$(System.DefaultWorkingDirectory)/build$(Build.BuildId).zip"
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(System.DefaultWorkingDirectory)/build$(Build.BuildId).zip'
+      artifactName: 'drop'
+
+  - task: AzureFunctionApp@2
+    displayName: 'Deploy Function App'
+    inputs:
+      azureSubscription: $(service_connection)
+      appType: 'functionApp'
+      appName: $(FunctionAppName)
+      package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+
+  - task: AzureAppServiceSettings@1
+    displayName: 'Update Function App Settings'
+    inputs: 
+      azureSubscription: $(service_connection)
+      appName: $(FunctionAppName)
+      appSettings: ${{ parameters.appSettings }}
