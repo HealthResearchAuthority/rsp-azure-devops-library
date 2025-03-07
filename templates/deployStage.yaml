@@ -9,6 +9,6 @@ stages:
       - group: ${{ parameters.envGroup }}
     condition: ${{ parameters.condition }}
     jobs:
-      - template: jobs/deployFunction.yaml@library
+      - template: ../jobs/deployFunction.yaml@library
         parameters:
           appSettings: $(appSettingsJson)
