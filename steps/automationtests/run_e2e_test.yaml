@@ -59,7 +59,7 @@ steps:
     displayName: "Run Accessibility Tests"
 
   - script: |
-      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
+      (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Monday'))
     env:
       PLATFORM: desktop
@@ -73,7 +73,7 @@ steps:
     displayName: "Run Tests - Scheduled Runs - Desktop Google Chrome"
 
   - script: |
-      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
+      (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Tuesday'))
     env:
       PLATFORM: desktop
@@ -87,7 +87,7 @@ steps:
     displayName: "Run Tests - Scheduled Runs - Desktop Microsoft Edge"  
 
   - script: |
-      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
+      (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Wednesday'))
     env:
       PLATFORM: mobile
@@ -101,7 +101,7 @@ steps:
     displayName: "Run Tests - Scheduled Runs - iOS Device - $(IOS_Device)"  
 
   - script: |
-      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
+      (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Thursday'))
     env:
       PLATFORM: mobile
@@ -115,7 +115,7 @@ steps:
     displayName: "Run Tests - Scheduled Runs - Android Device - $(ANDROID_Device)"
 
   - script: |
-      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
+      (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Friday'))
     env:
       PLATFORM: desktop
@@ -129,7 +129,7 @@ steps:
     displayName: "Run Tests - Scheduled Runs - Desktop Mozilla Firefox"  
 
   - script: |
-      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
+      (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Saturday'))
     env:
       PLATFORM: desktop
@@ -143,7 +143,7 @@ steps:
     displayName: "Run Tests - Scheduled Runs - Desktop Safari"
 
   - script: |
-      (npx bddgen --tags "@authSetup or @SystemTest or @IntegrationTest") && (npx playwright test)
+      (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Sunday'))
     env:
       PLATFORM: desktop
