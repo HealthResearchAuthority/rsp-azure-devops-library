@@ -24,7 +24,7 @@ steps:
   - script: |
       npx playwright install --with-deps
     displayName: "Install Playwright with Browsers"
-    
+
   - script: |
       npx playwright install --force msedge
       npx playwright install --force chrome
@@ -40,7 +40,7 @@ steps:
       ANDROID_Device: ${{ parameters.android_device }}
       IOS_Device: ${{ parameters.ios_device }}
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Smoke Tests"
 
@@ -54,13 +54,13 @@ steps:
       ANDROID_Device: ${{ parameters.android_device }}
       IOS_Device: ${{ parameters.ios_device }}
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Accessibility Tests"
 
   - script: |
       (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
-    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Monday'))
+    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Wednesday'))
     env:
       PLATFORM: desktop
       BROWSER: google chrome
@@ -68,7 +68,7 @@ steps:
       ANDROID_Device: N/A
       IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Google Chrome"
 
@@ -82,13 +82,13 @@ steps:
       ANDROID_Device: N/A
       IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - Desktop Microsoft Edge"  
+    displayName: "Run Tests - Scheduled Runs - Desktop Microsoft Edge"
 
   - script: |
       (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
-    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Wednesday'))
+    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Monday'))
     env:
       PLATFORM: mobile
       BROWSER: N/A
@@ -96,9 +96,9 @@ steps:
       ANDROID_Device: N/A
       IOS_Device: $(IOS_Device)
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - iOS Device - $(IOS_Device)"  
+    displayName: "Run Tests - Scheduled Runs - iOS Device - $(IOS_Device)"
 
   - script: |
       (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
@@ -110,7 +110,7 @@ steps:
       ANDROID_Device: $(ANDROID_Device)
       IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Android Device - $(ANDROID_Device)"
 
@@ -124,9 +124,9 @@ steps:
       ANDROID_Device: N/A
       IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - Desktop Mozilla Firefox"  
+    displayName: "Run Tests - Scheduled Runs - Desktop Mozilla Firefox"
 
   - script: |
       (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
@@ -138,7 +138,7 @@ steps:
       ANDROID_Device: N/A
       IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Safari"
 
@@ -152,16 +152,16 @@ steps:
       ANDROID_Device: N/A
       IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - Desktop Chromium"  
+    displayName: "Run Tests - Scheduled Runs - Desktop Chromium"
 
-  - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}'
+  - publish: "$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}"
     condition: always()
     artifact: test-report
     displayName: Publish Test Report
 
-  - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/axeAccessibility'
+  - publish: "$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/axeAccessibility"
     condition: ${{ eq(parameters.run_accessibility_tests, true) }}
     artifact: accessibility-report
     displayName: Publish Axe accessibility Report
