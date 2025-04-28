@@ -60,7 +60,7 @@ steps:
 
   - script: |
       (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
-    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Wednesday'))
+    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Monday'))
     env:
       PLATFORM: desktop
       BROWSER: google chrome
@@ -88,7 +88,7 @@ steps:
 
   - script: |
       (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
-    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Monday'))
+    condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Wednesday'))
     env:
       PLATFORM: mobile
       BROWSER: N/A
