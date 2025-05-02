@@ -10,7 +10,7 @@ steps:
       publishWebProjects: false
       zipAfterPublish: false
       modifyOutputPath: false 
-      projects: '**/$(projectForContainerBuild)'
+      projects: '**/**/$(projectForContainerBuild)'
 
   - task: ArchiveFiles@2
     displayName: "Archive files"
