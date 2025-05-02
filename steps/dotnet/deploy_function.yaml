@@ -10,7 +10,7 @@ steps:
       publishWebProjects: false
       zipAfterPublish: false
       modifyOutputPath: false 
-      projects: '**/*.csproj'
+      projects: '**/$(projectForContainerBuild)'
 
   - task: ArchiveFiles@2
     displayName: "Archive files"
@@ -34,7 +34,7 @@ steps:
 
   - task: AzureAppServiceSettings@1
     displayName: 'Update Function App Settings'
-    inputs: 
+    inputs:
       azureSubscription: $(service_connection)
       appName: $(FunctionAppName)
       appSettings: ${{ parameters.appSettings }}
