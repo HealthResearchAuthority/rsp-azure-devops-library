@@ -1,22 +1,14 @@
 steps:
-  - checkout: self
-
-  - task: DotNetCoreCLI@2
-    displayName: 'Restore From Feed'
-    inputs:
-      command: restore
-      projects: '$(project)'
-      feedsToUse: 'select'
-      vstsFeed: '$(vstsFeed)'
-    timeoutInMinutes: 5
-
   - task: NuGetAuthenticate@1
     displayName: 'NuGet Authenticate'
 
-  - script: |
-      echo "Pushing .nupkg packages (excluding symbols)..."
-      find "$(Build.ArtifactStagingDirectory)" -name '*.nupkg' ! -name '*.symbols.nupkg' | while read pkg; do
-        echo "Pushing $pkg"
-        dotnet nuget push "$pkg" --source "$(vstsFeed)" --skip-duplicate --api-key AzureDevOps
-      done
-    displayName: 'Push NuGet packages'
+  - task: NuGetCommand@2
+    displayName: 'NuGet Push to Azure Artifacts'
+    inputs:
+      command: 'push'
+      packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: '$(vstsFeed)'
+      publishPackageMetadata: false
+      allowPackageConflicts: true
+      verbosityPush: 'Normal'
