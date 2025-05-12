@@ -3,13 +3,9 @@ steps:
     displayName: 'NuGet Authenticate'
 
   - script: |
-      find "$(Build.ArtifactStagingDirectory)" -name '*.nupkg' ! -name '*.symbols.nupkg' > nupkg-files.txt
-    displayName: 'Find .nupkg files excluding symbols'
-
-  - task: DotNetCoreCLI@2
+      echo "Pushing .nupkg packages (excluding symbols)..."
+      find "$(Build.ArtifactStagingDirectory)" -name '*.nupkg' ! -name '*.symbols.nupkg' | while read pkg; do
+        echo "Pushing $pkg"
+        dotnet nuget push "$pkg" --source $(vstsFeed) --skip-duplicate --api-key AzureDevOps
+      done
     displayName: 'Push NuGet packages'
-    inputs:
-      command: custom
-      custom: nuget
-      arguments: |
-        $(cat nupkg-files.txt | sed 's/^/push /; s/$/ --source $(vstsFeed) --skip-duplicate --api-key AzureDevOps/' | tr '\n' ' ')
