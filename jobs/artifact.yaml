@@ -10,6 +10,8 @@ parameters:
 jobs:
   - job: Publish
     displayName: Push Artifact job
+    pool:
+      vmImage: 'ubuntu-22.04'
     steps:
       - template: ../steps/nuget/installer.yaml
       - template: ../steps/dotnet/installer.yaml
