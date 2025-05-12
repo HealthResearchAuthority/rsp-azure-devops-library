@@ -1,8 +1,9 @@
 steps:
   - task: NuGetAuthenticate@1
     displayName: 'NuGet Authenticate'
+
   - task: NuGetCommand@2
-    displayName: 'NuGet push'
+    displayName: 'NuGet Push to Azure Artifacts'
     inputs:
       command: 'push'
       packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
