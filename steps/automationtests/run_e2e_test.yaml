@@ -40,10 +40,7 @@ steps:
       ANDROID_Device: ${{ parameters.android_device }}
       IOS_Device: ${{ parameters.ios_device }}
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
-      SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
-      FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
-      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)
-      NON_ADMIN_USER_PASS: $(NON_ADMIN_USER_PASS)
+      RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Smoke Tests"
@@ -58,6 +55,7 @@ steps:
       ANDROID_Device: ${{ parameters.android_device }}
       IOS_Device: ${{ parameters.ios_device }}
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Accessibility Tests"
@@ -72,6 +70,7 @@ steps:
       ANDROID_Device: N/A
       IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Google Chrome"
@@ -86,6 +85,7 @@ steps:
       ANDROID_Device: N/A
       IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Microsoft Edge"  
@@ -100,6 +100,7 @@ steps:
       ANDROID_Device: N/A
       IOS_Device: $(IOS_Device)
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - iOS Device - $(IOS_Device)"  
@@ -114,6 +115,7 @@ steps:
       ANDROID_Device: $(ANDROID_Device)
       IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Android Device - $(ANDROID_Device)"
@@ -128,6 +130,7 @@ steps:
       ANDROID_Device: N/A
       IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Mozilla Firefox"  
@@ -142,6 +145,7 @@ steps:
       ANDROID_Device: N/A
       IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Safari"
@@ -156,6 +160,7 @@ steps:
       ANDROID_Device: N/A
       IOS_Device: N/A
       ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Chromium"  
