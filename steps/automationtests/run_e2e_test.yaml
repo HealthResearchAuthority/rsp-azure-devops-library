@@ -31,11 +31,11 @@ steps:
     displayName: "Install Branded Browsers"
 
   - script: |
-      (npx bddgen --tags "@authSetup or @Smoke") && (npx playwright test)
+      (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
     condition: and(ne(variables['Build.Reason'], 'Schedule'), ${{ eq(parameters.run_accessibility_tests, false) }})
     env:
-      PLATFORM: ${{ parameters.platform }}
-      BROWSER: ${{ parameters.browser }}
+      PLATFORM: desktop
+      BROWSER: firefox
       OS_TYPE: ${{ parameters.mobile_os }}
       ANDROID_Device: ${{ parameters.android_device }}
       IOS_Device: ${{ parameters.ios_device }}
