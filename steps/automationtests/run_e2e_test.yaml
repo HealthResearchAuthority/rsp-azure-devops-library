@@ -34,8 +34,8 @@ steps:
       (npx bddgen --tags "@authSetup or @Smoke") && (npx playwright test)
     condition: and(ne(variables['Build.Reason'], 'Schedule'), ${{ eq(parameters.run_accessibility_tests, false) }})
     env:
-      PLATFORM: desktop
-      BROWSER: google chrome
+      PLATFORM: ${{ parameters.platform }}
+      BROWSER: ${{ parameters.browser }}
       OS_TYPE: ${{ parameters.mobile_os }}
       ANDROID_Device: ${{ parameters.android_device }}
       IOS_Device: ${{ parameters.ios_device }}      
