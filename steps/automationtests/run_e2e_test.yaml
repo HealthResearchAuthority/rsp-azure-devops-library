@@ -31,19 +31,17 @@ steps:
     displayName: "Install Branded Browsers"
 
   - script: |
-      (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
+      (npx bddgen --tags "@authSetup or @Smoke") && (npx playwright test)
     condition: and(ne(variables['Build.Reason'], 'Schedule'), ${{ eq(parameters.run_accessibility_tests, false) }})
     env:
       PLATFORM: desktop
-      BROWSER: firefox
+      BROWSER: google chrome
       OS_TYPE: ${{ parameters.mobile_os }}
       ANDROID_Device: ${{ parameters.android_device }}
-      IOS_Device: ${{ parameters.ios_device }}
-      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      IOS_Device: ${{ parameters.ios_device }}      
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
       FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
-      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)
-      NON_ADMIN_USER_PASS: $(NON_ADMIN_USER_PASS)
+      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)     
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
@@ -57,12 +55,10 @@ steps:
       BROWSER: ${{ parameters.browser }}
       OS_TYPE: ${{ parameters.mobile_os }}
       ANDROID_Device: ${{ parameters.android_device }}
-      IOS_Device: ${{ parameters.ios_device }}
-      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      IOS_Device: ${{ parameters.ios_device }}    
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
       FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
-      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)
-      NON_ADMIN_USER_PASS: $(NON_ADMIN_USER_PASS)
+      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)    
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
@@ -76,12 +72,10 @@ steps:
       BROWSER: google chrome
       OS_TYPE: N/A
       ANDROID_Device: N/A
-      IOS_Device: N/A
-      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      IOS_Device: N/A     
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
       FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
-      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)
-      NON_ADMIN_USER_PASS: $(NON_ADMIN_USER_PASS)
+      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)     
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
@@ -95,12 +89,10 @@ steps:
       BROWSER: microsoft edge
       OS_TYPE: N/A
       ANDROID_Device: N/A
-      IOS_Device: N/A
-      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      IOS_Device: N/A    
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
       FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
-      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)
-      NON_ADMIN_USER_PASS: $(NON_ADMIN_USER_PASS)
+      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)     
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
@@ -114,12 +106,10 @@ steps:
       BROWSER: N/A
       OS_TYPE: iOS
       ANDROID_Device: N/A
-      IOS_Device: $(IOS_Device)
-      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      IOS_Device: $(IOS_Device)      
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
       FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
-      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)
-      NON_ADMIN_USER_PASS: $(NON_ADMIN_USER_PASS)
+      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)     
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
@@ -133,12 +123,10 @@ steps:
       BROWSER: N/A
       OS_TYPE: Android
       ANDROID_Device: $(ANDROID_Device)
-      IOS_Device: N/A
-      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      IOS_Device: N/A     
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
       FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
-      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)
-      NON_ADMIN_USER_PASS: $(NON_ADMIN_USER_PASS)
+      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)     
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
@@ -152,12 +140,10 @@ steps:
       BROWSER: firefox
       OS_TYPE: N/A
       ANDROID_Device: N/A
-      IOS_Device: N/A
-      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      IOS_Device: N/A     
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
       FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
-      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)
-      NON_ADMIN_USER_PASS: $(NON_ADMIN_USER_PASS)
+      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)     
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
@@ -171,12 +157,10 @@ steps:
       BROWSER: safari
       OS_TYPE: N/A
       ANDROID_Device: N/A
-      IOS_Device: N/A
-      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      IOS_Device: N/A      
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
       FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
-      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)
-      NON_ADMIN_USER_PASS: $(NON_ADMIN_USER_PASS)
+      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)     
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
@@ -190,12 +174,10 @@ steps:
       BROWSER: chromium
       OS_TYPE: N/A
       ANDROID_Device: N/A
-      IOS_Device: N/A
-      ADMIN_USER_PASS: $(ADMIN_USER_PASS)
+      IOS_Device: N/A      
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
       FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
-      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)
-      NON_ADMIN_USER_PASS: $(NON_ADMIN_USER_PASS)
+      BACKSTAGE_USER_PASS: $(BACKSTAGE_USER_PASS)     
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
