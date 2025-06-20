@@ -82,7 +82,7 @@ steps:
     displayName: "Run Tests - Scheduled Runs - Desktop Google Chrome"
 
   - script: |
-      (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
+      (npx bddgen --tags "@authSetup or @rsp-3939") && (npx playwright test)
     condition: and(eq(variables['Build.Reason'], 'Schedule'), eq(variables['DayOfWeek'], 'Tuesday'))
     env:
       PLATFORM: desktop
