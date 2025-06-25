@@ -1,36 +1,42 @@
 steps:
+  - task: Bash@3
+    displayName: Attempt NSLookup
+    inputs:
+      targetType: 'inline'
+      script: |
+        nslookup $(ContainerRegistryName).azurecr.io
+  - script: |
+      echo "Installing Azure CLI..."
+      curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+    displayName: 'Install Azure CLI'
+  - script: |
+      echo "Installing Docker (simplified)..."
+      sudo apt-get update -y
+      sudo apt-get install -y docker.io
+      sudo systemctl enable docker
+      sudo systemctl start docker
+      docker --version
+      sudo chmod 666 /var/run/docker.sock
+    displayName: 'Install Docker (Simplified)'
+  - task: AzureCLI@2
+    displayName: Login to ACR
+    inputs:
+      azureSubscription: $(service_connection)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        az acr login --name $(ContainerRegistryName).azurecr.io
   - task: DotNetCoreCLI@2
-    displayName: 'Publish container'
+    displayName: 'Publish container - Build ID Tag'
     inputs:
       command: "publish"
       publishWebProjects: false
       projects: '**/**/$(projectForContainerBuild)'
-      arguments: '-t:PublishContainer -p ContainerImageTags=$(Build.BuildId)'
-  - task: PowerShell@2
-    displayName: Print acrContainerName
+      arguments: '-t:PublishContainer -p ContainerImageTags=$(Build.BuildId) -p ContainerRegistry=$(ContainerRegistryName).azurecr.io -p ContainerRepository=$(acrContainerName)'
+  - task: DotNetCoreCLI@2
+    displayName: 'Publish container - Latest Tag'
     inputs:
-      targetType: 'inline'
-      script: '"$(acrContainerName)"'
-  - task: PowerShell@2
-    displayName: Print publishContainerName
-    inputs:
-      targetType: 'inline'
-      script: '"$(publishContainerName)"'
-  - task: PowerShell@2
-    displayName: Print Container Reg Name ContainerRegistryName
-    inputs:
-      targetType: 'inline'
-      script: | 
-        echo "Container Registry Name: $(ContainerRegistryName)"
-  - task: AzureCLI@2
-    displayName: Build and Push to ACR
-    inputs:
-      azureSubscription: $(service_connection)
-      scriptType: pscore
-      scriptLocation: inlineScript
-      inlineScript: |
-        az acr login --name $(ContainerRegistryName)
-        docker tag $(publishContainerName):$(Build.BuildId) $(ContainerRegistryName).azurecr.io/$(acrContainerName):$(Build.BuildId)
-        docker tag $(publishContainerName):$(Build.BuildId) $(ContainerRegistryName).azurecr.io/$(acrContainerName):latest
-        docker push $(ContainerRegistryName).azurecr.io/$(acrContainerName):$(Build.BuildId)
-        docker push $(ContainerRegistryName).azurecr.io/$(acrContainerName):latest
+      command: "publish"
+      publishWebProjects: false
+      projects: '**/**/$(projectForContainerBuild)'
+      arguments: '-t:PublishContainer -p ContainerImageTags=latest -p ContainerRegistry=$(ContainerRegistryName).azurecr.io -p ContainerRepository=$(acrContainerName)'  
