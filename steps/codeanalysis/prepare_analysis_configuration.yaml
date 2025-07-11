@@ -3,6 +3,10 @@ parameters:
   - name: project_name
 
 steps:
+  - script: |
+      echo "Installing Unzip"
+      sudo apt-get install unzip
+    displayName: 'Install Unzip'
   - task: SonarCloudPrepare@3
     inputs:
       SonarCloud: 'Sonar Cloud GitHub'
