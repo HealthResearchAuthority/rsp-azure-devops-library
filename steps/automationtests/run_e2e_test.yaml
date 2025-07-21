@@ -31,7 +31,7 @@ steps:
     displayName: "Install Branded Browsers"
 
   - script: |
-      (npx bddgen --tags "@authSetup or @rsp-3547") && (npx playwright test)
+      (npx bddgen --tags "@authSetup or @rsp-4110") && (npx playwright test)
     condition: and(ne(variables['Build.Reason'], 'Schedule'), ${{ eq(parameters.run_accessibility_tests, false) }})
     env:
       PLATFORM: ${{ parameters.platform }}
