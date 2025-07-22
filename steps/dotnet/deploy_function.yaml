@@ -37,4 +37,21 @@ steps:
     inputs:
       azureSubscription: $(service_connection)
       appName: $(FunctionAppName)
-      appSettings: ${{ parameters.appSettings }}
+      appSettings: |
+        [
+          {
+            "name": "AppSettings__AzureAppConfiguration__Endpoint", 
+            "value": "$(AppConfigurationEndpoint)", 
+            "slotSetting": false
+          },
+          {
+            "name": "AppSettings__AzureAppConfiguration__IdentityClientID", 
+            "value": "$(AppConfigurationClientID)", 
+            "slotSetting": false
+          },
+          {
+            "name": "RtsTimerSchedule",
+            "value": "$(RtsTimerSchedule)",
+            "slotSetting": false
+          }
+        ]
