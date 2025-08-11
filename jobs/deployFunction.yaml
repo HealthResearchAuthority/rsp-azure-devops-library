@@ -22,7 +22,6 @@ jobs:
       - template: ../steps/dotnet/installer.yaml
       - template: ../steps/dotnet/install_report_generator.yaml
 
-      # Install unzip utility
       - script: |
           echo "Installing zip"
           sudo apt-get update
