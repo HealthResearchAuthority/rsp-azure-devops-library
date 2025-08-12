@@ -21,6 +21,13 @@ jobs:
       - template: ../steps/nuget/installer.yaml
       - template: ../steps/dotnet/installer.yaml
       - template: ../steps/dotnet/install_report_generator.yaml
+
+      - script: |
+          echo "Installing zip"
+          sudo apt-get update
+          sudo apt-get install -y zip
+        displayName: 'Install zip'
+
       - ${{ if parameters.install_aspire }}:
         - template: ../steps/dotnet/install_aspire_workload.yaml
         - checkout: ${{ parameters.service_defaults_repo }}      

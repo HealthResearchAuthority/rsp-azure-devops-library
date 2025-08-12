@@ -3,6 +3,12 @@ parameters:
     default: ''
 
 steps:
+  - task: Bash@3
+    displayName: Attempt NSLookup
+    inputs:
+      targetType: 'inline'
+      script: |
+        nslookup $(ContainerRegistryName).azurecr.io
   - task: DotNetCoreCLI@2
     inputs:
       command: 'publish'
