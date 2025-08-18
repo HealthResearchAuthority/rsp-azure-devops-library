@@ -24,7 +24,7 @@ steps:
   - script: |
       npx playwright install --with-deps
     displayName: "Install Playwright with Browsers"
-    
+
   - script: |
       npx playwright install --force msedge
       npx playwright install --force chrome
@@ -38,14 +38,14 @@ steps:
       BROWSER: ${{ parameters.browser }}
       OS_TYPE: ${{ parameters.mobile_os }}
       ANDROID_Device: ${{ parameters.android_device }}
-      IOS_Device: ${{ parameters.ios_device }}      
+      IOS_Device: ${{ parameters.ios_device }}
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
-      FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
+      APPLICANT_USER_PASS: $(APPLICANT_USER_PASS)
       STUDYWIDE_REVIEWER_PASS: $(STUDYWIDE_REVIEWER_PASS)
-      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS) 
-      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS) 
+      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS)
+      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Smoke Tests"
 
@@ -57,14 +57,14 @@ steps:
       BROWSER: ${{ parameters.browser }}
       OS_TYPE: ${{ parameters.mobile_os }}
       ANDROID_Device: ${{ parameters.android_device }}
-      IOS_Device: ${{ parameters.ios_device }}    
+      IOS_Device: ${{ parameters.ios_device }}
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
-      FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
+      APPLICANT_USER_PASS: $(APPLICANT_USER_PASS)
       STUDYWIDE_REVIEWER_PASS: $(STUDYWIDE_REVIEWER_PASS)
-      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS) 
-      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)   
+      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS)
+      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Accessibility Tests"
 
@@ -76,14 +76,14 @@ steps:
       BROWSER: google chrome
       OS_TYPE: N/A
       ANDROID_Device: N/A
-      IOS_Device: N/A     
+      IOS_Device: N/A
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
-      FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
+      APPLICANT_USER_PASS: $(APPLICANT_USER_PASS)
       STUDYWIDE_REVIEWER_PASS: $(STUDYWIDE_REVIEWER_PASS)
-      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS) 
-      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)    
+      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS)
+      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Google Chrome"
 
@@ -95,16 +95,16 @@ steps:
       BROWSER: microsoft edge
       OS_TYPE: N/A
       ANDROID_Device: N/A
-      IOS_Device: N/A    
+      IOS_Device: N/A
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
-      FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
+      APPLICANT_USER_PASS: $(APPLICANT_USER_PASS)
       STUDYWIDE_REVIEWER_PASS: $(STUDYWIDE_REVIEWER_PASS)
-      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS) 
-      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)     
+      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS)
+      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - Desktop Microsoft Edge"  
+    displayName: "Run Tests - Scheduled Runs - Desktop Microsoft Edge"
 
   - script: |
       (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
@@ -114,16 +114,16 @@ steps:
       BROWSER: N/A
       OS_TYPE: iOS
       ANDROID_Device: N/A
-      IOS_Device: $(IOS_Device)      
+      IOS_Device: $(IOS_Device)
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
-      FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
+      APPLICANT_USER_PASS: $(APPLICANT_USER_PASS)
       STUDYWIDE_REVIEWER_PASS: $(STUDYWIDE_REVIEWER_PASS)
-      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS) 
-      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)     
+      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS)
+      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - iOS Device - $(IOS_Device)"  
+    displayName: "Run Tests - Scheduled Runs - iOS Device - $(IOS_Device)"
 
   - script: |
       (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
@@ -133,14 +133,14 @@ steps:
       BROWSER: N/A
       OS_TYPE: Android
       ANDROID_Device: $(ANDROID_Device)
-      IOS_Device: N/A     
+      IOS_Device: N/A
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
-      FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
+      APPLICANT_USER_PASS: $(APPLICANT_USER_PASS)
       STUDYWIDE_REVIEWER_PASS: $(STUDYWIDE_REVIEWER_PASS)
-      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS) 
-      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)     
+      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS)
+      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Android Device - $(ANDROID_Device)"
 
@@ -152,16 +152,16 @@ steps:
       BROWSER: firefox
       OS_TYPE: N/A
       ANDROID_Device: N/A
-      IOS_Device: N/A     
+      IOS_Device: N/A
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
-      FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
+      APPLICANT_USER_PASS: $(APPLICANT_USER_PASS)
       STUDYWIDE_REVIEWER_PASS: $(STUDYWIDE_REVIEWER_PASS)
-      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS) 
-      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)     
+      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS)
+      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - Desktop Mozilla Firefox"  
+    displayName: "Run Tests - Scheduled Runs - Desktop Mozilla Firefox"
 
   - script: |
       (npx bddgen --tags "@authSetup or @Regression") && (npx playwright test)
@@ -171,14 +171,14 @@ steps:
       BROWSER: safari
       OS_TYPE: N/A
       ANDROID_Device: N/A
-      IOS_Device: N/A      
+      IOS_Device: N/A
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
-      FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
+      APPLICANT_USER_PASS: $(APPLICANT_USER_PASS)
       STUDYWIDE_REVIEWER_PASS: $(STUDYWIDE_REVIEWER_PASS)
-      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS) 
-      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)     
+      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS)
+      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Safari"
 
@@ -190,23 +190,23 @@ steps:
       BROWSER: chromium
       OS_TYPE: N/A
       ANDROID_Device: N/A
-      IOS_Device: N/A      
+      IOS_Device: N/A
       SYSTEM_ADMIN_PASS: $(SYSTEM_ADMIN_PASS)
-      FRONTSTAGE_USER_PASS: $(FRONTSTAGE_USER_PASS)
+      APPLICANT_USER_PASS: $(APPLICANT_USER_PASS)
       STUDYWIDE_REVIEWER_PASS: $(STUDYWIDE_REVIEWER_PASS)
-      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS) 
-      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)     
+      TEAM_MANAGER_PASS: $(TEAM_MANAGER_PASS)
+      WORKFLOW_COORDINATOR_PASS: $(WORKFLOW_COORDINATOR_PASS)
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
-      CI: 'true'
+      CI: "true"
     timeoutInMinutes: ${{ parameters.timeout }}
-    displayName: "Run Tests - Scheduled Runs - Desktop Chromium"  
+    displayName: "Run Tests - Scheduled Runs - Desktop Chromium"
 
-  - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}'
+  - publish: "$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}"
     condition: always()
     artifact: test-report
     displayName: Publish Test Report
 
-  - publish: '$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/axeAccessibility'
+  - publish: "$(System.DefaultWorkingDirectory)/${{ parameters.reportDirectory }}/axeAccessibility"
     condition: ${{ eq(parameters.run_accessibility_tests, true) }}
     artifact: accessibility-report
     displayName: Publish Axe accessibility Report
