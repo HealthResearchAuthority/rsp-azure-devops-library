@@ -1,0 +1,61 @@
+steps:
+  - task: Bash@3
+    displayName: Attempt NSLookup
+    inputs:
+      targetType: 'inline'
+      script: |
+        nslookup $(CMSAppServiceName).scm.azurewebsites.net
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: 'publish'
+      publishWebProjects: true
+  - task: AzureWebApp@1
+    displayName: 'Deploy Web App'
+    inputs:
+      azureSubscription: $(service_connection)
+      appType: 'webAppLinux'
+      appName: $(CMSAppServiceName)
+      package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+  - task: AzureAppServiceSettings@1
+    displayName: 'Update App Settings'
+    inputs: 
+      azureSubscription: $(service_connection)
+      appName: $(CMSAppServiceName)
+      appSettings: |
+        [
+          {
+            "name": "AppSettings__AzureAppConfiguration__Endpoint", 
+            "value": "$(AppConfigurationEndpoint)", 
+            "slotSetting": false
+          },
+          {
+            "name": "AppSettings__AzureAppConfiguration__IdentityClientID", 
+            "value": "$(AppConfigurationClientID)", 
+            "slotSetting": false
+          },
+          {
+            "name": "UMBRACO__CMS__Global__MainDomLock",
+            "value": "FileSystemMainDomLock",
+            "slotSetting": false
+          },
+          {
+            "name": "UMBRACO__CMS__Hosting__LocalTempStorageLocation",
+            "value": "EnvironmentTemp",
+            "slotSetting": false
+          },
+          {
+            "name": "UMBRACO__CMS__Examine__LuceneDirectoryFactory",
+            "value": "SyncedTempFileSystemDirectoryFactory",
+            "slotSetting": false
+          },
+          {
+            "name": "ConnectionStrings__umbracoDbDSN",
+            "value": "Server=tcp:$(SQLServerName).database.windows.net,1433;Database=cmsservice;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication=\"Active Directory Default\";",
+            "slotSetting": false
+          },
+          {
+            "name": "AZURE_CLIENT_ID",
+            "value": "$(AZURE_CLIENT_ID)",
+            "slotSetting": false
+          }
+        ]
