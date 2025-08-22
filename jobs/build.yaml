@@ -6,6 +6,9 @@ parameters:
   - name: run_sonarcloud_analysis
     type: boolean
     default: false
+  - name: run_unit_tests
+    type: boolean
+    default: true
   - name: install_aspire
     type: boolean
     default: false
@@ -44,8 +47,9 @@ jobs:
         - template: ../steps/security/dependency_scanning.yaml
         - template: ../steps/security/code_scanning_analysis.yaml
 
-      - template: ../steps/automationtests/run_unit_tests.yaml
-      - template: ../steps/automationtests/publish_code_coverage.yaml
+      - ${{ if parameters.run_unit_tests }}:
+        - template: ../steps/automationtests/run_unit_tests.yaml
+        - template: ../steps/automationtests/publish_code_coverage.yaml
 
       # sonar cloud run code analysis
       - ${{ if parameters.run_sonarcloud_analysis }}:

@@ -1,4 +1,10 @@
 steps:
+  - task: Bash@3
+    displayName: Attempt NSLookup
+    inputs:
+      targetType: 'inline'
+      script: |
+        nslookup $(AppServiceName).scm.azurewebsites.net
   - task: DotNetCoreCLI@2
     inputs:
       command: 'publish'
