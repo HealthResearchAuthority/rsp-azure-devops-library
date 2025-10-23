@@ -33,6 +33,18 @@ jobs:
     displayName: 'Run Automated E2E Tests'
     timeoutInMinutes: ${{ parameters.tests_run_timeout }}
     steps:
+      - script: |
+          echo "Installing PowerShell"
+          sudo apt-get update
+          sudo apt-get install -y wget apt-transport-https software-properties-common
+          source /etc/os-release
+          wget -q https://packages.microsoft.com/config/ubuntu/$VERSION_ID/packages-microsoft-prod.deb
+          sudo dpkg -i packages-microsoft-prod.deb
+          rm packages-microsoft-prod.deb
+          sudo apt-get update
+          sudo apt-get install -y powershell
+        displayName: 'Install PowerShell'
+        
       - task: PowerShell@2
         inputs:
           targetType: 'inline'

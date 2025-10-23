@@ -62,6 +62,7 @@ steps:
       WORKFLOW_COORDINATOR_W_PASS: $(WORKFLOW_COORDINATOR_W_PASS)
       WORKFLOW_COORDINATOR_W_MFA_KEY: $(WORKFLOW_COORDINATOR_W_MFA_KEY)
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
+      DB_USER_PASS: $(DB_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Smoke Tests"
@@ -98,6 +99,7 @@ steps:
       WORKFLOW_COORDINATOR_W_PASS: $(WORKFLOW_COORDINATOR_W_PASS)
       WORKFLOW_COORDINATOR_W_MFA_KEY: $(WORKFLOW_COORDINATOR_W_MFA_KEY)  
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
+      DB_USER_PASS: $(DB_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Accessibility Tests"
@@ -134,6 +136,7 @@ steps:
       WORKFLOW_COORDINATOR_W_PASS: $(WORKFLOW_COORDINATOR_W_PASS)
       WORKFLOW_COORDINATOR_W_MFA_KEY: $(WORKFLOW_COORDINATOR_W_MFA_KEY)  
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
+      DB_USER_PASS: $(DB_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Google Chrome"
@@ -170,6 +173,7 @@ steps:
       WORKFLOW_COORDINATOR_W_PASS: $(WORKFLOW_COORDINATOR_W_PASS)
       WORKFLOW_COORDINATOR_W_MFA_KEY: $(WORKFLOW_COORDINATOR_W_MFA_KEY)     
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
+      DB_USER_PASS: $(DB_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Microsoft Edge"  
@@ -206,6 +210,7 @@ steps:
       WORKFLOW_COORDINATOR_W_PASS: $(WORKFLOW_COORDINATOR_W_PASS)
       WORKFLOW_COORDINATOR_W_MFA_KEY: $(WORKFLOW_COORDINATOR_W_MFA_KEY)    
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
+      DB_USER_PASS: $(DB_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - iOS Device - $(IOS_Device)"  
@@ -242,6 +247,7 @@ steps:
       WORKFLOW_COORDINATOR_W_PASS: $(WORKFLOW_COORDINATOR_W_PASS)
       WORKFLOW_COORDINATOR_W_MFA_KEY: $(WORKFLOW_COORDINATOR_W_MFA_KEY)    
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
+      DB_USER_PASS: $(DB_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Android Device - $(ANDROID_Device)"
@@ -278,6 +284,7 @@ steps:
       WORKFLOW_COORDINATOR_W_PASS: $(WORKFLOW_COORDINATOR_W_PASS)
       WORKFLOW_COORDINATOR_W_MFA_KEY: $(WORKFLOW_COORDINATOR_W_MFA_KEY)    
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
+      DB_USER_PASS: $(DB_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Mozilla Firefox"  
@@ -314,6 +321,7 @@ steps:
       WORKFLOW_COORDINATOR_W_PASS: $(WORKFLOW_COORDINATOR_W_PASS)
       WORKFLOW_COORDINATOR_W_MFA_KEY: $(WORKFLOW_COORDINATOR_W_MFA_KEY)    
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
+      DB_USER_PASS: $(DB_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Safari"
@@ -350,6 +358,7 @@ steps:
       WORKFLOW_COORDINATOR_W_PASS: $(WORKFLOW_COORDINATOR_W_PASS)
       WORKFLOW_COORDINATOR_W_MFA_KEY: $(WORKFLOW_COORDINATOR_W_MFA_KEY)     
       RTS_CLIENT_SECRET: $(RTS_CLIENT_SECRET)
+      DB_USER_PASS: $(DB_USER_PASS)
       CI: 'true'
     timeoutInMinutes: ${{ parameters.timeout }}
     displayName: "Run Tests - Scheduled Runs - Desktop Chromium"  
