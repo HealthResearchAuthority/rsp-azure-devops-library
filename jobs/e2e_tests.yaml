@@ -52,6 +52,17 @@ jobs:
             $day = $(Get-Date -Format dddd);
             Write-Host "##vso[task.setvariable variable=DayOfWeek]$day"
 
+      - ${{ if parameters.run_sonarcloud_analysis }}:
+          - task: JavaToolInstaller@0
+            displayName: 'Install Java for SonarCloud'
+            inputs:
+              versionSpec: '21'
+              jdkArchitectureOption: 'x64'
+              jdkSourceOption: 'LocalDirectory'
+              jdkFile: 'https://api.adoptium.net/v3/binary/latest/21/ga/linux/x64/jdk/hotspot/normal/eclipse'
+              jdkDestinationDirectory: '$(Agent.ToolsDirectory)/jdk21'
+              cleanDestinationDirectory: false
+
       # sonar cloud code analysis configuration
       - ${{ if parameters.run_sonarcloud_analysis }}:
           - template: ../steps/codeanalysis/cli_prepare_analysis_configuration.yaml
