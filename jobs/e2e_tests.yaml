@@ -52,16 +52,19 @@ jobs:
             $day = $(Get-Date -Format dddd);
             Write-Host "##vso[task.setvariable variable=DayOfWeek]$day"
 
+      # Install Java 21 for SonarCloud
       - ${{ if parameters.run_sonarcloud_analysis }}:
-          - task: JavaToolInstaller@0
-            displayName: 'Install Java for SonarCloud'
-            inputs:
-              versionSpec: '21'
-              jdkArchitectureOption: 'x64'
-              jdkSourceOption: 'LocalDirectory'
-              jdkFile: 'https://api.adoptium.net/v3/binary/latest/21/ga/linux/x64/jdk/hotspot/normal/eclipse'
-              jdkDestinationDirectory: '$(Agent.ToolsDirectory)/jdk21'
-              cleanDestinationDirectory: false
+          - script: |
+              echo "Installing OpenJDK 21..."
+              sudo apt-get update
+              sudo apt-get install -y openjdk-21-jdk
+              # Verify installation
+              java -version
+              # Set JAVA_HOME for this pipeline
+              JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
+              echo "##vso[task.setvariable variable=JAVA_HOME]$JAVA_HOME"
+              echo "JAVA_HOME set to: $JAVA_HOME"
+            displayName: 'Install Java 21 for SonarCloud'
 
       # sonar cloud code analysis configuration
       - ${{ if parameters.run_sonarcloud_analysis }}:
