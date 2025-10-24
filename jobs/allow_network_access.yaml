@@ -1,0 +1,35 @@
+parameters:
+  - name: storage_account_name
+    default: ''
+  - name: function_app_name
+    default: ''
+
+jobs:
+  - job: AllowNetworkAccess
+    displayName: "Whitelist IP in Function App and Storage"
+    steps:
+      - template: ../steps/dotnet/install_azure_cli.yaml
+      - template: ../steps/az/az_login.yaml
+      - task: AzureCLI@2
+        name: fetchPublicIP
+        displayName: "Fetch Public IP Address"
+        inputs:
+          azureSubscription: $(service_connection)
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            ipaddress=$(curl -s http://ipinfo.io/ip)
+            ipaddressipify=$(curl -s https://api.ipify.org)
+            echo "##vso[task.setvariable variable=ipaddress;isOutput=true;]$ipaddress"
+            echo "##vso[task.setvariable variable=ipaddressipify;isOutput=true;]$ipaddressipify"
+
+      - task: AzureCLI@2
+        displayName: "Allowing IP Address Access"
+        inputs:
+          azureSubscription: $(service_connection)
+          scriptType: 'bash'
+          scriptLocation: 'inlineScript'
+          inlineScript: |
+            echo "Allowing IP: $(fetchPublicIP.ipaddress)"
+            az functionapp config access-restriction add -g $(AZURE_RESOURCE_GROUP_NAME) -n ${{ parameters.function_app_name }} --rule-name build_server --action Allow --ip-address $(fetchPublicIP.ipaddress) --priority 250 --scm-site true
+            az storage account network-rule add -g $(AZURE_RESOURCE_GROUP_NAME) --account-name ${{ parameters.storage_account_name }} --ip-address $(fetchPublicIP.ipaddress)

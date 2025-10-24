@@ -8,7 +8,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
-        nslookup $(ContainerRegistryName).azurecr.io
+        nslookup $(FunctionAppName).azurewebsites.net
   - task: DotNetCoreCLI@2
     inputs:
       command: 'publish'
@@ -30,6 +30,13 @@ steps:
       PathtoPublish: '$(System.DefaultWorkingDirectory)/build$(Build.BuildId).zip'
       artifactName: 'drop'
 
+  - task: Bash@3
+    displayName: Print all files under Default Directory
+    inputs:
+      targetType: 'inline'
+      script: |
+        ls -R $(System.DefaultWorkingDirectory)
+
   - task: AzureFunctionApp@2
     displayName: 'Deploy Function App'
     inputs:
@@ -43,21 +50,4 @@ steps:
     inputs:
       azureSubscription: $(service_connection)
       appName: $(FunctionAppName)
-      appSettings: |
-        [
-          {
-            "name": "AppSettings__AzureAppConfiguration__Endpoint", 
-            "value": "$(AppConfigurationEndpoint)", 
-            "slotSetting": false
-          },
-          {
-            "name": "AppSettings__AzureAppConfiguration__IdentityClientID", 
-            "value": "$(AppConfigurationClientID)", 
-            "slotSetting": false
-          },
-          {
-            "name": "RtsTimerSchedule",
-            "value": "$(RtsTimerSchedule)",
-            "slotSetting": false
-          }
-        ]
+      appSettings: ${{ parameters.appSettings }}
