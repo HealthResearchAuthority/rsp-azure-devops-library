@@ -1,4 +1,2 @@
 steps:
   - task: SonarCloudAnalyze@3
-    inputs:
-      jdkversion: 'JAVA_HOME'
