@@ -1,3 +1,11 @@
+parameters:
+  - name: deployToSlot
+    type: boolean
+    default: false
+  - name: slotName
+    type: string
+    default: 'staging'
+
 steps:
   - task: Bash@3
     displayName: Attempt NSLookup
@@ -10,27 +18,32 @@ steps:
       command: 'publish'
       publishWebProjects: true
   - task: AzureWebApp@1
-    displayName: 'Deploy Web App'
+    displayName: 'Deploy Web App to ${{ parameters.slotName }}'
     inputs:
       azureSubscription: $(service_connection)
       appType: 'webAppLinux'
       appName: $(AppServiceName)
       package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+      deployToSlotOrASE: ${{ parameters.deployToSlot }}
+      resourceGroupName: $(resourceGroupName)
+      slotName: ${{ parameters.slotName }}
   - task: AzureAppServiceSettings@1
     displayName: 'Update App Settings'
-    inputs: 
+    inputs:
       azureSubscription: $(service_connection)
       appName: $(AppServiceName)
+      resourceGroupName: $(resourceGroupName)
+      slotName: ${{ parameters.slotName }}
       appSettings: |
         [
           {
-            "name": "AppSettings__AzureAppConfiguration__Endpoint", 
-            "value": "$(AppConfigurationEndpoint)", 
+            "name": "AppSettings__AzureAppConfiguration__Endpoint",
+            "value": "$(AppConfigurationEndpoint)",
             "slotSetting": false
           },
           {
-            "name": "AppSettings__AzureAppConfiguration__IdentityClientID", 
-            "value": "$(AppConfigurationClientID)", 
+            "name": "AppSettings__AzureAppConfiguration__IdentityClientID",
+            "value": "$(AppConfigurationClientID)",
             "slotSetting": false
           }
         ]
