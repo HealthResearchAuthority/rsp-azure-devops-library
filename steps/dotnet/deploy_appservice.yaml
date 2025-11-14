@@ -18,7 +18,7 @@ steps:
       command: 'publish'
       publishWebProjects: true
   - task: AzureWebApp@1
-    displayName: 'Deploy Web App to ${{ parameters.slotName }}'
+    displayName: 'Deploy Web App'
     inputs:
       azureSubscription: $(service_connection)
       appType: 'webAppLinux'
