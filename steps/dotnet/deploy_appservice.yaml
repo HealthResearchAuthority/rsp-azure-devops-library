@@ -26,14 +26,16 @@ steps:
       package: '$(System.DefaultWorkingDirectory)/**/*.zip'
       deployToSlotOrASE: ${{ parameters.deployToSlot }}
       resourceGroupName: $(resourceGroupName)
-      slotName: ${{ parameters.slotName }}
+      ${{ if eq(parameters.deployToSlot, true) }}:
+        slotName: ${{ parameters.slotName }}
   - task: AzureAppServiceSettings@1
     displayName: 'Update App Settings'
     inputs:
       azureSubscription: $(service_connection)
       appName: $(AppServiceName)
       resourceGroupName: $(resourceGroupName)
-      slotName: ${{ parameters.slotName }}
+      ${{ if eq(parameters.deployToSlot, true) }}:
+        slotName: ${{ parameters.slotName }}
       appSettings: |
         [
           {
