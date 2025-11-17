@@ -33,7 +33,8 @@ steps:
       azureSubscription: $(service_connection)
       appName: $(AppServiceName)
       resourceGroupName: $(resourceGroupName)
-      slotName: ${{ parameters.slotName }}
+      ${{ if eq(parameters.deployToSlot, true) }}:
+        slotName: ${{ parameters.slotName }}
       appSettings: |
         [
           {
