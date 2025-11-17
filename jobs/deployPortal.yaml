@@ -6,6 +6,12 @@ parameters:
     default: ''
   - name: depends_on
     default: ''
+  - name: deployToSlot
+    type: boolean
+    default: false
+  - name: slotName
+    type: string
+    default: 'staging'
 
 jobs:
   - job: Deploy
@@ -24,3 +30,6 @@ jobs:
         - checkout: ${{ parameters.service_defaults_repo }}
       - template: ../steps/dotnet/restore_from_feed.yaml
       - template: ../steps/dotnet/deploy_appservice.yaml
+        parameters:
+          deployToSlot: ${{ parameters.deployToSlot }}
+          slotName: ${{ parameters.slotName }}
