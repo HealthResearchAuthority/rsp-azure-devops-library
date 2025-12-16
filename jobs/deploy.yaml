@@ -6,23 +6,51 @@ parameters:
     default: ''
   - name: depends_on
     default: ''
+  - name: environment
+    type: string
+    default: ''
 
 jobs:
-  - job: Deploy
-    ${{ if ne('', parameters.depends_on) }}:
-      dependsOn: ${{ parameters.depends_on }}
-      condition: succeeded()
-    ${{ if eq('', parameters.depends_on) }}:
-      dependsOn: []
-    displayName: Deploy
-    steps:
-      - template: ../steps/nuget/installer.yaml
-      - template: ../steps/dotnet/installer.yaml
-      - template: ../steps/dotnet/install_report_generator.yaml
-      - ${{ if parameters.install_aspire }}:
-        - template: ../steps/dotnet/install_aspire_workload.yaml
-        - checkout: ${{ parameters.service_defaults_repo }}
-      - template: ../steps/dotnet/restore_from_feed.yaml
-      - template: ../steps/dotnet/acr_login.yaml
-      - template: ../steps/dotnet/publish_container.yaml
-      - template: ../steps/dotnet/deploy_aca.yaml
+  - ${{ if eq(parameters.environment, '') }}:
+    - job: Deploy
+      ${{ if ne('', parameters.depends_on) }}:
+        dependsOn: ${{ parameters.depends_on }}
+        condition: succeeded()
+      ${{ if eq('', parameters.depends_on) }}:
+        dependsOn: []
+      displayName: Deploy
+      steps:
+        - template: ../steps/nuget/installer.yaml
+        - template: ../steps/dotnet/installer.yaml
+        - template: ../steps/dotnet/install_report_generator.yaml
+        - ${{ if parameters.install_aspire }}:
+          - template: ../steps/dotnet/install_aspire_workload.yaml
+          - checkout: ${{ parameters.service_defaults_repo }}
+        - template: ../steps/dotnet/restore_from_feed.yaml
+        - template: ../steps/dotnet/acr_login.yaml
+        - template: ../steps/dotnet/publish_container.yaml
+        - template: ../steps/dotnet/deploy_aca.yaml
+
+  - ${{ if ne(parameters.environment, '') }}:
+    - deployment: Deploy
+      ${{ if ne('', parameters.depends_on) }}:
+        dependsOn: ${{ parameters.depends_on }}
+        condition: succeeded()
+      ${{ if eq('', parameters.depends_on) }}:
+        dependsOn: []
+      displayName: Deploy
+      environment: ${{ parameters.environment }}
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - template: ../steps/nuget/installer.yaml
+              - template: ../steps/dotnet/installer.yaml
+              - template: ../steps/dotnet/install_report_generator.yaml
+              - ${{ if parameters.install_aspire }}:
+                - template: ../steps/dotnet/install_aspire_workload.yaml
+                - checkout: ${{ parameters.service_defaults_repo }}
+              - template: ../steps/dotnet/restore_from_feed.yaml
+              - template: ../steps/dotnet/acr_login.yaml
+              - template: ../steps/dotnet/publish_container.yaml
+              - template: ../steps/dotnet/deploy_aca.yaml
