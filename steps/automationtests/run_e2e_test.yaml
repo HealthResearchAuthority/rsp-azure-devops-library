@@ -26,6 +26,13 @@ steps:
     displayName: "Install Playwright with Browsers"
     
   - script: |
+      sudo mkdir -p /etc/apt/keyrings
+      curl -fsSL https://dl.google.com/linux/linux_signing_key.pub \
+        | sudo gpg --dearmor -o /etc/apt/keyrings/google-chrome.gpg
+      echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] \
+      https://dl.google.com/linux/chrome/deb/ stable main" \
+      | sudo tee /etc/apt/sources.list.d/google-chrome.list
+      sudo apt update
       npx playwright install --force msedge
       npx playwright install --force chrome
     displayName: "Install Branded Browsers"
