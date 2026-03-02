@@ -26,36 +26,36 @@ steps:
           {
             "name": "AppSettings__AzureAppConfiguration__Endpoint", 
             "value": "$(AppConfigurationEndpoint)", 
-            "slotSetting": false
+            "slotSetting": true
           },
           {
             "name": "AppSettings__AzureAppConfiguration__IdentityClientID", 
             "value": "$(AppConfigurationClientID)", 
-            "slotSetting": false
+            "slotSetting": true
           },
           {
             "name": "UMBRACO__CMS__Global__MainDomLock",
             "value": "FileSystemMainDomLock",
-            "slotSetting": false
+            "slotSetting": true
           },
           {
             "name": "UMBRACO__CMS__Hosting__LocalTempStorageLocation",
             "value": "EnvironmentTemp",
-            "slotSetting": false
+            "slotSetting": true
           },
           {
             "name": "UMBRACO__CMS__Examine__LuceneDirectoryFactory",
             "value": "SyncedTempFileSystemDirectoryFactory",
-            "slotSetting": false
+            "slotSetting": true
           },
           {
             "name": "ConnectionStrings__umbracoDbDSN",
             "value": "Server=tcp:$(SQLServerName).database.windows.net,1433;Database=cmsservice;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication=\"Active Directory Default\";",
-            "slotSetting": false
+            "slotSetting": true
           },
           {
             "name": "AZURE_CLIENT_ID",
             "value": "$(AZURE_CLIENT_ID)",
-            "slotSetting": false
+            "slotSetting": true
           }
         ]

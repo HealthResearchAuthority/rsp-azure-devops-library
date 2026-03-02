@@ -41,11 +41,11 @@ steps:
           {
             "name": "AppSettings__AzureAppConfiguration__Endpoint",
             "value": "$(AppConfigurationEndpoint)",
-            "slotSetting": false
+            "slotSetting": true
           },
           {
             "name": "AppSettings__AzureAppConfiguration__IdentityClientID",
             "value": "$(AppConfigurationClientID)",
-            "slotSetting": false
+            "slotSetting": true
           }
         ]
